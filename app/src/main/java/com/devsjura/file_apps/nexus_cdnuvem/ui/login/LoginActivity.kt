@@ -1,6 +1,7 @@
 package com.devsjura.file_apps.nexus_cdnuvem.ui.login
 
 import android.os.Bundle
+import android.text.Html
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -11,8 +12,9 @@ import com.devsjura.file_apps.nexus_cdnuvem.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
 
-    private val animaStart = AnimaStart()
-
+    private val animaStart by lazy {
+        AnimaStart()
+    }
     private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,8 +27,12 @@ class LoginActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
         animaStart.objectAnimaImgTxt(binding.containerLogo)
+
+        binding.txtCreateAccount.text = Html.fromHtml(
+            getString(R.string.login_create_account),
+            Html.FROM_HTML_MODE_LEGACY
+        )
 
     }
 }

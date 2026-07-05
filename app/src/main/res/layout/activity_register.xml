@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://tools.android.com/tools"
+    xmlns:tools2="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0A0F18"
+    android:id="@+id/mainRegister"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp">
+
+        <!-- Botão Voltar -->
+        <TextView
+            android:id="@+id/tvBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="8dp"
+            android:text="Voltar"
+            android:textColor="#8A94A6"
+            android:textSize="16sp"
+            app:drawableStartCompat="@drawable/ic_arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Logo/Header Area -->
+
+
+        <LinearLayout
+            android:id="@+id/containerRegisterLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvBack"
+            tools2:ignore="MissingConstraints">
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/ic_shield_neon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvBack" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:orientation="vertical"
+                tools2:ignore="MissingConstraints">
+
+                <TextView
+                    android:id="@+id/tvBrandName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="NEXUS"
+                    android:textColor="#FFFFFF"
+                    android:textSize="28sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvBrandSubtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing="0.1"
+                    android:text="Certificado Digital"
+                    android:textColor="#8A94A6"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="@id/tvBrandName"
+                    app:layout_constraintTop_toBottomOf="@id/tvBrandName" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Título da Tela -->
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Criar conta"
+            android:textColor="#FFFFFF"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/containerRegisterLogo" />
+
+        <TextView
+            android:id="@+id/tvSubtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="Preencha seus dados para solicitar seu certificado digital"
+            android:textColor="#8A94A6"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+        <!-- Campo: Nome Completo -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:hint="Nome completo"
+            android:textColorHint="#8A94A6"
+            app:boxBackgroundColor="#111827"
+            app:boxStrokeColor="#1F2937"
+            app:hintTextColor="#8A94A6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvSubtitle">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_user"
+                android:drawablePadding="12dp"
+                android:inputType="textPersonName"
+                android:textColor="#FFFFFF"
+                android:textHint="Digite seu nome" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Campo: CPF -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilCpf"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="CPF"
+            android:textColorHint="#8A94A6"
+            app:boxBackgroundColor="#111827"
+            app:boxStrokeColor="#1F2937"
+            app:hintTextColor="#8A94A6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tilName">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etCpf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:textColor="#FFFFFF"
+                android:textHint="000.000.000-00" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Campo: E-mail -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilEmail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="E-mail"
+            android:textColorHint="#8A94A6"
+            app:boxBackgroundColor="#111827"
+            app:boxStrokeColor="#1F2937"
+            app:hintTextColor="#8A94A6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tilCpf">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_email"
+                android:drawablePadding="12dp"
+                android:inputType="textEmailAddress"
+                android:textColor="#FFFFFF"
+                android:textHint="seu@email.com" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Campo: Celular -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilPhone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Celular"
+            android:textColorHint="#8A94A6"
+            app:boxBackgroundColor="#111827"
+            app:boxStrokeColor="#1F2937"
+            app:hintTextColor="#8A94A6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tilEmail">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_phone"
+                android:drawablePadding="12dp"
+                android:inputType="phone"
+                android:textColor="#FFFFFF"
+                android:textHint="(00) 00000-0000" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Botão Criar Conta -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCreateAccount"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="40dp"
+            android:text="Criar conta"
+            android:textAllCaps="false"
+            android:textColor="#0A0F18"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:backgroundTint="#00E5C9"
+            app:cornerRadius="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tilPhone" />
+
+        <!-- Termos de Uso e Privacidade -->
+        <TextView
+            android:id="@+id/tvTerms"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:text="Ao continuar, você concorda com os Termos de Uso e Política de Privacidade."
+            android:textColor="#8A94A6"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnCreateAccount" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

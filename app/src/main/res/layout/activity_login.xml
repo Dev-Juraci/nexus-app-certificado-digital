@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/loginMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -140,6 +141,23 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
+            android:id="@+id/txtErrorMessage"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_error_message"
+            android:gravity="center"
+            android:text="Preencha todos os campos."
+            android:textColor="#E55B6C"
+            android:textSize="16sp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_password"
+            tools:text="Preencha todos os campos." />
+
+        <TextView
             android:id="@+id/btn_forgot_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -149,7 +167,7 @@
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_password" />
+            app:layout_constraintTop_toBottomOf="@id/txtErrorMessage" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_login"
@@ -165,11 +183,11 @@
             app:layout_constraintTop_toBottomOf="@id/btn_forgot_password" />
 
         <TextView
-            android:id="@+id/txt_create_account"
+            android:id="@+id/txtCreateAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Ainda não tem conta? Criar conta"
+            android:text="@string/login_create_account"
             android:textColor="#94A3B8"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -180,7 +198,7 @@
             android:id="@+id/txt_ssl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="15dp"
             android:drawableStart="@drawable/ic_shield_outline_small"
             android:drawablePadding="6dp"
             android:text="Conexão criptografada com SSL"
@@ -189,7 +207,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_create_account"
+            app:layout_constraintTop_toBottomOf="@id/txtCreateAccount"
             app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
