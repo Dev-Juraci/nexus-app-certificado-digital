@@ -9,15 +9,15 @@ import android.widget.LinearLayout
 @SuppressLint("Recycle")
 
 class AnimaStart {
-    fun objectAnimaImgTxt(idObject: LinearLayout) {
+    fun objectAnimaImgTxt(idObject: LinearLayout, qntFadein: Float, durationMtes: Long) {
 
         ObjectAnimator.ofFloat(
             idObject,
             "translationY",
             0f,
-            -20f
+            -qntFadein
         ).apply {
-            duration = 1500
+            duration = durationMtes
             repeatCount = ValueAnimator.INFINITE
             repeatMode = ValueAnimator.REVERSE
 

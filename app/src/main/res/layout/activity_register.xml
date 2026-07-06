@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://tools.android.com/tools"
     xmlns:tools2="http://schemas.android.com/tools"
+    android:id="@+id/mainRegister"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0A0F18"
-    android:id="@+id/mainRegister"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,14 +26,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Logo/Header Area -->
-
 
         <LinearLayout
             android:id="@+id/containerRegisterLogo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -86,7 +83,7 @@
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:text="Criar conta"
             android:textColor="#FFFFFF"
             android:textSize="28sp"
@@ -130,8 +127,7 @@
                 android:drawableStart="@drawable/ic_user"
                 android:drawablePadding="12dp"
                 android:inputType="textPersonName"
-                android:textColor="#FFFFFF"
-                android:textHint="Digite seu nome" />
+                android:textColor="#FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Campo: CPF -->
@@ -154,8 +150,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:textColor="#FFFFFF"
-                android:textHint="000.000.000-00" />
+                android:textColor="#FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Campo: E-mail -->
@@ -180,8 +175,7 @@
                 android:drawableStart="@drawable/ic_email"
                 android:drawablePadding="12dp"
                 android:inputType="textEmailAddress"
-                android:textColor="#FFFFFF"
-                android:textHint="seu@email.com" />
+                android:textColor="#FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Campo: Celular -->
@@ -206,8 +200,7 @@
                 android:drawableStart="@drawable/ic_phone"
                 android:drawablePadding="12dp"
                 android:inputType="phone"
-                android:textColor="#FFFFFF"
-                android:textHint="(00) 00000-0000" />
+                android:textColor="#FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Botão Criar Conta -->

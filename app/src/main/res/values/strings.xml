@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Nexus - CD Nuvem</string>
-    <string name="login_create_account">Ainda não tem conta? &lt;span style="color:#00D2FF"&gt;&lt;b&gt;Criar conta&lt;/b&gt;&lt;/span&gt;</string>
+    <string name="loginCreateAccount">Ainda não tem conta? &lt;span style="color:#00D2FF"&gt;&lt;b&gt;Criar conta&lt;/b&gt;&lt;/span&gt;</string>
 </resources>
