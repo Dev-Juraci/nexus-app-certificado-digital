@@ -10,7 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.devsjura.file_apps.nexus_cdnuvem.R
 import com.devsjura.file_apps.nexus_cdnuvem.animations.AnimaStart
 import com.devsjura.file_apps.nexus_cdnuvem.databinding.ActivityLoginBinding
-import com.devsjura.file_apps.nexus_cdnuvem.ui.Recover.RecoverActivity
+import com.devsjura.file_apps.nexus_cdnuvem.ui.forget.RecoverActivity
 import com.devsjura.file_apps.nexus_cdnuvem.ui.register.RegisterActivity
 
 class LoginActivity : AppCompatActivity() {
@@ -30,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        animaStart.objectAnimaImgTxt(binding.containerLogo, -20F, 1500L)
+        animaStart.objectAnimaImgTxt(binding.containerLogo, -20F, 1250L)
 
         with(binding) {
             btnForgotPassword.setOnClickListener {

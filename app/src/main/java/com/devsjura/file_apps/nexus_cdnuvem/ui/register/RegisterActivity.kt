@@ -35,6 +35,6 @@ class RegisterActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        animaStartRegister.objectAnimaImgTxt(binding.containerRegisterLogo, -15F, 1500L)
+        animaStartRegister.objectAnimaImgTxt(binding.containerRegisterLogo, -15F, 1250L)
     }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/recoverPasswordMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,18 +17,19 @@
             android:id="@+id/btnBackForget"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
             android:layout_marginTop="8dp"
             android:clickable="true"
+            android:drawablePadding="8dp"
             android:focusable="true"
-            android:text="←  Voltar"
-            android:textColor="#94A3B8"
+            android:text="Voltar"
+            android:textColor="#8A94A6"
             android:textSize="16sp"
+            app:drawableStartCompat="@drawable/ic_arrow_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
-            android:id="@+id/containerLogo"
+            android:id="@+id/containerAppName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
@@ -75,7 +77,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="6dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="25dp"
             android:gravity="center"
             android:text="Recuperar senha"
             android:textColor="#FFFFFF"
@@ -84,77 +86,231 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/containerLogo" />
+            app:layout_constraintTop_toBottomOf="@+id/containerAppName" />
 
-        <!-- Subtítulo descritivo -->
-        <TextView
-            android:id="@+id/txt_subtitle"
+
+        <!-- Contêiner de Verificação do Código (Escondido por padrão) -->
+        <LinearLayout
+            android:id="@+id/containerVerificationCode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="6dp"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:text="Informe seu e-mail para receber o código de verificação"
-            android:textColor="#94A3B8"
-            android:textSize="15sp"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_title" />
+            app:layout_constraintTop_toBottomOf="@id/txt_title">
 
-        <!-- Label: E-mail -->
-        <TextView
-            android:id="@+id/lbl_email"
+            <!-- Texto de Instrução -->
+            <TextView
+                android:id="@+id/txt_verification_instruction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:lineSpacingMultiplier="1.2"
+                android:textColor="#94A3B8"
+                android:textSize="15sp"
+                tools:text="Digite o código de 6 dígitos enviado para:" />
+
+            <!-- Fileira com os 6 campos de digitação -->
+            <LinearLayout
+                android:id="@+id/containerOtpInputs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <!-- Campo 1 -->
+                <EditText
+                    android:id="@+id/input_otp_1"
+                    android:layout_width="46dp"
+                    android:layout_height="56dp"
+                    android:layout_marginHorizontal="4dp"
+                    android:background="@drawable/bg_input_field"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:textColor="#FFFFFF"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    tools:text="9" />
+
+                <!-- Campo 2 -->
+                <EditText
+                    android:id="@+id/input_otp_2"
+                    android:layout_width="46dp"
+                    android:layout_height="56dp"
+                    android:layout_marginHorizontal="4dp"
+                    android:background="@drawable/bg_input_field"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:textColor="#FFFFFF"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    tools:text="3" />
+
+                <!-- Campo 3 -->
+                <EditText
+                    android:id="@+id/input_otp_3"
+                    android:layout_width="46dp"
+                    android:layout_height="56dp"
+                    android:layout_marginHorizontal="4dp"
+                    android:background="@drawable/bg_input_field"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:textColor="#FFFFFF"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    tools:text="8" />
+
+                <!-- Campo 4 -->
+                <EditText
+                    android:id="@+id/input_otp_4"
+                    android:layout_width="46dp"
+                    android:layout_height="56dp"
+                    android:layout_marginHorizontal="4dp"
+                    android:background="@drawable/bg_input_field"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:textColor="#FFFFFF"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    tools:text="8" />
+
+                <!-- Campo 5 -->
+                <EditText
+                    android:id="@+id/input_otp_5"
+                    android:layout_width="46dp"
+                    android:layout_height="56dp"
+                    android:layout_marginHorizontal="4dp"
+                    android:background="@drawable/bg_input_field"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:textColor="#FFFFFF"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    tools:text="3" />
+
+                <!-- Campo 6 (Focado/Borda Ativa) -->
+                <EditText
+                    android:id="@+id/input_otp_6"
+                    android:layout_width="46dp"
+                    android:layout_height="56dp"
+                    android:layout_marginHorizontal="4dp"
+                    android:background="@drawable/bg_input_field"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:textColor="#FFFFFF"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    tools:text="2" />
+            </LinearLayout>
+
+            <!-- Botão Reenviar código -->
+            <TextView
+                android:id="@+id/btn_resend_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"
+                android:clickable="true"
+                android:drawablePadding="8dp"
+                android:focusable="true"
+                android:text="Reenviar código"
+                android:textColor="#00E5FF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:drawableStartCompat="@drawable/ic_refresh" />
+
+            <!-- Botão Verificar código -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_verify_code"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/bg_button_gradient"
+                android:text="Verificar código"
+                android:textAllCaps="false"
+                android:textColor="#0B111E"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/containerEmailRecovery"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="6dp"
-            android:layout_marginTop="36dp"
-            android:text="E-mail"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_subtitle" />
+            android:layout_marginTop="5dp"
+            android:visibility="visible"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/txt_title"
+            tools:layout_editor_absoluteX="24dp">
 
-        <!-- Input de Entrada de E-mail único -->
-        <EditText
-            android:id="@+id/input_email"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginHorizontal="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/bg_input_field"
-            android:drawableStart="@drawable/ic_email"
-            android:drawablePadding="12dp"
-            android:hint="seu@email.com"
-            android:inputType="textEmailAddress"
-            android:paddingHorizontal="10dp"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#475569"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lbl_email" />
+            <TextView
+                android:id="@+id/txt_subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="6dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="Informe seu e-mail para receber o código de verificação"
+                android:textColor="#94A3B8"
+                android:textSize="15sp" />
 
-        <!-- Botão Principal: Enviar Código -->
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_send_code"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginHorizontal="6dp"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/bg_button_gradient"
-            android:text="Enviar código"
-            android:textAllCaps="false"
-            android:textColor="#0B111E"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/input_email" />
+            <!-- Label: E-mail -->
+            <TextView
+                android:id="@+id/lbl_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="6dp"
+                android:layout_marginTop="36dp"
+                android:text="E-mail"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <!-- Input de Entrada de E-mail único -->
+            <EditText
+                android:id="@+id/inputEmail"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_input_field"
+                android:drawableStart="@drawable/ic_email"
+                android:drawablePadding="12dp"
+                android:hint="seu@email.com"
+                android:inputType="textEmailAddress"
+                android:paddingHorizontal="10dp"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#475569"
+                android:textSize="16sp" />
+
+            <!-- Botão Principal: Enviar Código -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnSendCode"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginHorizontal="6dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/bg_button_gradient"
+                android:text="Enviar código"
+                android:textAllCaps="false"
+                android:textColor="#0B111E"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -1,7 +1,9 @@
 package com.devsjura.file_apps.nexus_cdnuvem.ui.forget
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -9,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.devsjura.file_apps.nexus_cdnuvem.R
 import com.devsjura.file_apps.nexus_cdnuvem.animations.AnimaStart
 import com.devsjura.file_apps.nexus_cdnuvem.databinding.ActivityRecoverBinding
+import com.devsjura.file_apps.nexus_cdnuvem.ui.login.LoginActivity
 
 class RecoverActivity : AppCompatActivity() {
 
@@ -31,8 +34,27 @@ class RecoverActivity : AppCompatActivity() {
             insets
         }
 
-        with(binding){
+        animaStartForget.objectAnimaImgTxt(binding.containerAppName, -15F, 1250L)
 
+        with(binding) {
+            btnBackForget.setOnClickListener {
+                startActivity(Intent(this@RecoverActivity, LoginActivity::class.java))
+                finish()
+            }
+
+            btnSendCode.setOnClickListener {
+                val input = inputEmail.text.toString()
+
+                //VERIFICAÇÃO DE FUNCIONAMENTO - sem progresso no codigo!!
+
+                if (input.isNotBlank()) {
+                    Toast.makeText(this@RecoverActivity, "App informa: $input", Toast.LENGTH_SHORT)
+                        .show()
+                } else{
+                    Toast.makeText(this@RecoverActivity, "CAMPO VAZIO!! 😠👌👍", Toast.LENGTH_SHORT).show()
+                }
+
+            }
         }
 
     }
