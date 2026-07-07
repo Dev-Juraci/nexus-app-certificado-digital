@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.devsjura.file_apps.nexus_cdnuvem.R
 import com.devsjura.file_apps.nexus_cdnuvem.animations.AnimaStart
 import com.devsjura.file_apps.nexus_cdnuvem.databinding.ActivityLoginBinding
+import com.devsjura.file_apps.nexus_cdnuvem.ui.Recover.RecoverActivity
 import com.devsjura.file_apps.nexus_cdnuvem.ui.register.RegisterActivity
 
 class LoginActivity : AppCompatActivity() {
@@ -31,13 +32,19 @@ class LoginActivity : AppCompatActivity() {
         }
         animaStart.objectAnimaImgTxt(binding.containerLogo, -20F, 1500L)
 
-        binding.txtCreateAccount.text = Html.fromHtml(
-            getString(R.string.loginCreateAccount),
-            Html.FROM_HTML_MODE_LEGACY
-        )
+        with(binding) {
+            btnForgotPassword.setOnClickListener {
+                startActivity(Intent(this@LoginActivity, RecoverActivity::class.java))
+            }
 
-        binding.txtCreateAccount.setOnClickListener {
-            startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
+            txtCreateAccount.text = Html.fromHtml(
+                getString(R.string.loginCreateAccount),
+                Html.FROM_HTML_MODE_LEGACY
+            )
+
+            txtCreateAccount.setOnClickListener {
+                startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
+            }
         }
 
     }

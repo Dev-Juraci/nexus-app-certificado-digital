@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.devsjura.file_apps.nexus_cdnuvem" />
+                  <option name="mobileSdkAppId" value="1:786918771874:android:55a45999d8f1d005f8dbfb" />
+                  <option name="projectId" value="nexus-cd-nuvem" />
+                  <option name="projectNumber" value="786918771874" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

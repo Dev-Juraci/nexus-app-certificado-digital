@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "786918771874",
+    "project_id": "nexus-cd-nuvem",
+    "storage_bucket": "nexus-cd-nuvem.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:786918771874:android:55a45999d8f1d005f8dbfb",
+        "android_client_info": {
+          "package_name": "com.devsjura.file_apps.nexus_cdnuvem"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEwvPNTA-kUbfnNKrjkssZcm5jp-QDaHY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
