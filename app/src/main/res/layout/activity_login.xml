@@ -93,7 +93,7 @@
             app:layout_constraintTop_toBottomOf="@id/txt_subtitle" />
 
         <EditText
-            android:id="@+id/input_username"
+            android:id="@+id/inputUsername"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="8dp"
@@ -117,7 +117,7 @@
             android:textColor="#FFFFFF"
             android:textSize="14sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/input_username" />
+            app:layout_constraintTop_toBottomOf="@id/inputUsername" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_password"
@@ -130,7 +130,7 @@
             app:passwordToggleTint="#475569">
 
             <EditText
-                android:id="@+id/input_password"
+                android:id="@+id/inputPassword"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:background="@drawable/bg_input_field"
@@ -172,7 +172,7 @@
             app:layout_constraintTop_toBottomOf="@id/txtErrorMessage" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_login"
+            android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="32dp"
@@ -195,7 +195,7 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_login" />
+            app:layout_constraintTop_toBottomOf="@id/btnLogin" />
 
         <TextView
             android:id="@+id/txt_ssl"
