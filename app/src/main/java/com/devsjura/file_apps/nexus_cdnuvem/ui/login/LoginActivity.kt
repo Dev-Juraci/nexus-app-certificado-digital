@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
+import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -29,11 +30,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.regex.Pattern
 import kotlin.math.log
 import kotlin.time.Duration.Companion.milliseconds
 
 class LoginActivity : AppCompatActivity() {
-
     private val animaStart by lazy {
         AnimaStart()
     }
@@ -120,9 +121,28 @@ class LoginActivity : AppCompatActivity() {
                 val passwInputUser = binding.inputPassword.text.toString()
 
                 if (inputUserEmail.isBlank() || passwInputUser.isBlank()) {
-                    Snackbar.make(binding.root, "Preencha email e senha.", Snackbar.LENGTH_LONG)
+                    Snackbar.make(
+                        binding.root,
+                        "Preencha o e-mail e a senha.",
+                        Snackbar.LENGTH_LONG
+                    )
                         .show()
                     return@setOnClickListener
+                } else if (!Patterns.EMAIL_ADDRESS.matcher(inputUserEmail).matches()) {
+                    Snackbar.make(
+                        binding.root,
+                        "Digite um endereço de e-mail válido.",
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                    return@setOnClickListener
+                } else if (passwInputUser.length < 6) {
+                    Snackbar.make(
+                        binding.root,
+                        "A senha deve ter no mínimo 6 dígitos.",
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                    return@setOnClickListener
+
                 }
 
                 checkingInformation(inputUserEmail, passwInputUser)

@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.devsjura.file_apps.nexus_cdnuvem.model.StatesLogin
 import com.devsjura.file_apps.nexus_cdnuvem.others.LoginAttemptManager
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -51,8 +52,9 @@ class LoginViewModel(private val loginAttemptManager: LoginAttemptManager) : Vie
             }
 
             messageUser.value = StatesLogin(
-                "", false
+                "Tente novamente", false
             )
+            loginAttemptManager.resetAttempts()
 
         }
     }
@@ -69,13 +71,15 @@ class LoginViewModel(private val loginAttemptManager: LoginAttemptManager) : Vie
 
             .addOnFailureListener {
                 loginAttemptManager.logFailedAttempt()
+
                 if (loginAttemptManager.numberOfAttempts() <= 4) {
-                    messageUser.value = StatesLogin("Email ou Senha inválido.", true)
-                } else {
-                    messageUser.value = StatesLogin("", false)
-                    checkInitialLock()
+                    messageUser.value =
+                        StatesLogin("E-mail ou senha inválidos.", false)
                     return@addOnFailureListener
                 }
+
+                checkInitialLock()
+
 
             }
 

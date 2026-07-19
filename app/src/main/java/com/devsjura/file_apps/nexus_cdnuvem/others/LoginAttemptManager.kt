@@ -3,6 +3,7 @@ package com.devsjura.file_apps.nexus_cdnuvem.others
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
+import kotlin.time.Duration.Companion.seconds
 
 class LoginAttemptManager(context: Context) {
 
@@ -10,7 +11,7 @@ class LoginAttemptManager(context: Context) {
 
     companion object {
         private const val MAX_BLOCKAGE = 5
-        private const val TIME_BLOCKAGE_MS = 10 * 60 * 1000L
+        private const val TIME_BLOCKAGE_MS = 1 * 60 * 1000L
 
     }
 
