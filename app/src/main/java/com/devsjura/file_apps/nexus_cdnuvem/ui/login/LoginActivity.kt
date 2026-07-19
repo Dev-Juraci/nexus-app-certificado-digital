@@ -1,11 +1,14 @@
 package com.devsjura.file_apps.nexus_cdnuvem.ui.login
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.text.Html
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -21,7 +24,13 @@ import com.devsjura.file_apps.nexus_cdnuvem.ui.register.RegisterActivity
 import com.devsjura.file_apps.nexus_cdnuvem.viewmodel.LoginViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.CoroutineName
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlin.math.log
+import kotlin.time.Duration.Companion.milliseconds
 
 class LoginActivity : AppCompatActivity() {
 
@@ -51,6 +60,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -63,10 +73,8 @@ class LoginActivity : AppCompatActivity() {
         }
         animaStart.objectAnimaImgTxt(binding.containerLogo, -20F, 1250L)
 
-        loginViewModel.messageUser.observe(this) { msgUser ->
-            Toast.makeText(this, msgUser, Toast.LENGTH_LONG).show()
+        loginViewModel.checkInitialLock()
 
-        }
 
 
         loginViewModel.loginSucess.observe(this) { sucess ->
@@ -76,10 +84,21 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-//        loginViewModel.errorPassUser.observe(this) { errorMsgUser ->
-//            Snackbar.make(binding.root, errorMsgUser, Snackbar.LENGTH_LONG).show()
-//
-//        }
+        loginViewModel.messageUser.observe(this) { statesLogin ->
+            if (statesLogin.viewLinear) {
+                binding.txtLockoutMessage.text = statesLogin.msgToTheUser
+                binding.layoutFormFields.visibility = View.GONE
+                binding.containerLockoutView.visibility = View.VISIBLE
+            } else {
+                binding.containerLockoutView.visibility = View.GONE
+                Snackbar.make(binding.root, statesLogin.msgToTheUser, Snackbar.LENGTH_LONG).show()
+                binding.layoutFormFields.visibility = View.VISIBLE
+            }
+
+        }
+
+
+
 
 
         with(binding) {
@@ -101,12 +120,13 @@ class LoginActivity : AppCompatActivity() {
                 val passwInputUser = binding.inputPassword.text.toString()
 
                 if (inputUserEmail.isBlank() || passwInputUser.isBlank()) {
-                    Snackbar.make(binding.root, "Preencha email e senha", Snackbar.LENGTH_LONG)
+                    Snackbar.make(binding.root, "Preencha email e senha.", Snackbar.LENGTH_LONG)
                         .show()
                     return@setOnClickListener
                 }
 
-                changeObserver(inputUserEmail, passwInputUser)
+                checkingInformation(inputUserEmail, passwInputUser)
+
 
             }
 
@@ -114,7 +134,10 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    fun changeObserver(inEm: String, paIn: String) {
+    private fun checkingInformation(inEm: String, paIn: String) {
         loginViewModel.loginUserMain(inEm, paIn)
+
     }
+
+
 }

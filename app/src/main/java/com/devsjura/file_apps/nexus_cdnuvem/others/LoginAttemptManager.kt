@@ -21,11 +21,11 @@ class LoginAttemptManager(context: Context) {
     }
 
     fun numberOfAttempts(): Int {
-        return prefs.getInt("count_The_Attempts", 0) + 1
+        return prefs.getInt("count_The_Attempts", 0)
     }
 
     fun logFailedAttempt() {
-        val valueAwaiting = numberOfAttempts()
+        val valueAwaiting = numberOfAttempts() + 1
         prefs.edit { putInt("count_The_Attempts", valueAwaiting) }
 
         if (valueAwaiting >= MAX_BLOCKAGE) {
