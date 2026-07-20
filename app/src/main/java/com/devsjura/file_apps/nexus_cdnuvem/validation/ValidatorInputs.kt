@@ -25,17 +25,41 @@ class ValidatorInputs {
         val isValidatorCpf =
             receivesCpf.trim().replace(Regex("[.,]"), "")
 
-        Log.d("CPF", "Dentro da função: '$isValidatorCpf'")
-
         return when {
             isValidatorCpf.isEmpty() -> "Informe seu CPF."
             isValidatorCpf.length != 11 -> "O CPF deve conter 11 dígitos."
             isValidatorCpf.all { it == isValidatorCpf[0] } -> "CPF inválido."
+            !calucalorCPF(isValidatorCpf) -> "Errado"
             else -> null
         }
 
 
     }
 
+    private fun calucalorCPF(cpfCalculo: String): Boolean {
+
+        var sum = 0
+
+        for (i in 0 until 9) {
+            sum += cpfCalculo[i].digitToInt() * (10 - i)
+        }
+
+        var rest = sum % 11
+
+        val digitOne = if (rest < 2) 0 else (11 - rest)
+
+        sum = 0
+
+        for (i in 0 until 10) {
+            sum += cpfCalculo[i].digitToInt() * (11 - i)
+        }
+
+        rest = sum % 11
+
+        val digitTwo = if (rest < 2) 0 else (11 - rest)
+
+
+        return digitOne == cpfCalculo[9].digitToInt() && digitTwo == cpfCalculo[10].digitToInt()
+    }
 
 }
