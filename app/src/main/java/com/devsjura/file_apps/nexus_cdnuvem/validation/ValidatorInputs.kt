@@ -1,6 +1,8 @@
 package com.devsjura.file_apps.nexus_cdnuvem.validation
 
 import android.util.Log
+import android.util.Patterns
+import androidx.core.R
 
 class ValidatorInputs {
 
@@ -35,6 +37,18 @@ class ValidatorInputs {
 
 
     }
+
+    fun isValidatorEmail(receivesEmail: String): String? {
+        if ((receivesEmail.trim()
+                .isEmpty()) || (!Patterns.EMAIL_ADDRESS.matcher(receivesEmail.trim()).matches())
+        ) {
+            return "${com.devsjura.file_apps.nexus_cdnuvem.R.string.emails_infor}"
+        }
+
+        return null
+
+    }
+
 
     private fun calucalorCPF(cpfCalculo: String): Boolean {
 

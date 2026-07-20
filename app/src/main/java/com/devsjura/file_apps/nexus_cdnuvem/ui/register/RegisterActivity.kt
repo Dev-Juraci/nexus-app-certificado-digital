@@ -47,9 +47,9 @@ class RegisterActivity : AppCompatActivity() {
             binding.etName.error = okok
 
             val tstCPF = binding.etCpf.text.toString()
-           val okokCPF = ValidatorInputs().isValidatorCPF(tstCPF)
+            val okokCPF = ValidatorInputs().isValidatorCPF(tstCPF)
 
-            if (okokCPF != null){
+            if (okokCPF != null) {
                 binding.etCpf.error = okokCPF
 
             } else {
@@ -57,6 +57,14 @@ class RegisterActivity : AppCompatActivity() {
 
             }
 
+            val tstEmail = binding.etEmail.text.toString()
+
+            val okokEmail = ValidatorInputs().isValidatorEmail(tstEmail)
+            if (okokEmail != null) {
+                binding.etEmail.error = okokEmail
+            } else {
+                binding.etEmail.error = null
+            }
 
         }
 

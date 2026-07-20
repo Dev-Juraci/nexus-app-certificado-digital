@@ -114,7 +114,7 @@ class LoginActivity : AppCompatActivity() {
                 if (inputUserEmail.isBlank() || passwInputUser.isBlank()) {
                     Snackbar.make(
                         binding.root,
-                        "Preencha o e-mail e a senha.",
+                        getString(R.string.preencha_o_e_mail_e_a_senha),
                         Snackbar.LENGTH_LONG
                     )
                         .show()
@@ -122,7 +122,7 @@ class LoginActivity : AppCompatActivity() {
                 } else if (!Patterns.EMAIL_ADDRESS.matcher(inputUserEmail).matches()) {
                     Snackbar.make(
                         binding.root,
-                        "Digite um endereço de e-mail válido.",
+                        getString(R.string.emails_infor),
                         Snackbar.LENGTH_LONG
                     ).show()
                     return@setOnClickListener

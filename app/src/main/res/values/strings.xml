@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Nexus - CD Nuvem</string>
     <string name="loginCreateAccount">Ainda não tem conta? &lt;span style="color:#00D2FF"&gt;&lt;b&gt;Criar conta&lt;/b&gt;&lt;/span&gt;</string>
+    <string name="preencha_o_e_mail_e_a_senha">Preencha o e-mail e a senha.</string>
+    <string name="emails_infor">Digite um endereço de e-mail válido.</string>
 </resources>
