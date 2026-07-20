@@ -42,7 +42,7 @@ class ValidatorInputs {
         if ((receivesEmail.trim()
                 .isEmpty()) || (!Patterns.EMAIL_ADDRESS.matcher(receivesEmail.trim()).matches())
         ) {
-            return "${com.devsjura.file_apps.nexus_cdnuvem.R.string.emails_infor}"
+            return "Email Inválido."
         }
 
         return null
