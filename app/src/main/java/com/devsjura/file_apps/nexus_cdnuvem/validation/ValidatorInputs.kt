@@ -14,7 +14,7 @@ class ValidatorInputs {
             namesIsValidator.isEmpty() -> "Preenche o campo de nomes."
             namesIsValidator.length < 5 -> "O nome completo precisa ter pelo menos 5 caracteres."
             namesIsValidator.length > 100 -> "O nome não pode ter mais de 100 caracteres."
-            !namesIsValidator.matches(validNameRegex) -> "Digite um nome válido. (apenas letras, mínimo de 2 letras por palavra)"
+            !namesIsValidator.matches(validNameRegex) -> "Digite um nome válido."
             else -> null
         }
 
