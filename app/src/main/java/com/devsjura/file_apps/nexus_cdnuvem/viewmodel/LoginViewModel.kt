@@ -1,24 +1,18 @@
 package com.devsjura.file_apps.nexus_cdnuvem.viewmodel
 
-import android.util.Log
-import android.widget.Toast
-import androidx.annotation.LongDef
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.devsjura.file_apps.nexus_cdnuvem.model.StatesLogin
 import com.devsjura.file_apps.nexus_cdnuvem.others.LoginAttemptManager
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 import kotlin.getValue
-import kotlin.math.log
 import kotlin.time.Duration.Companion.milliseconds
 
 class LoginViewModel(private val loginAttemptManager: LoginAttemptManager) : ViewModel() {
+
     private val fbAuth by lazy {
         FirebaseAuth.getInstance()
     }

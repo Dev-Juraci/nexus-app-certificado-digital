@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.text.Html
 import android.util.Patterns
 import android.view.View
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
@@ -25,14 +24,6 @@ import com.devsjura.file_apps.nexus_cdnuvem.ui.register.RegisterActivity
 import com.devsjura.file_apps.nexus_cdnuvem.viewmodel.LoginViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.coroutines.CoroutineName
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import java.util.regex.Pattern
-import kotlin.math.log
-import kotlin.time.Duration.Companion.milliseconds
 
 class LoginActivity : AppCompatActivity() {
     private val animaStart by lazy {

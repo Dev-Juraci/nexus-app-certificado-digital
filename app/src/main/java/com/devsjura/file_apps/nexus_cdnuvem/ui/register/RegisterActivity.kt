@@ -2,6 +2,7 @@ package com.devsjura.file_apps.nexus_cdnuvem.ui.register
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -10,6 +11,8 @@ import com.devsjura.file_apps.nexus_cdnuvem.R
 import com.devsjura.file_apps.nexus_cdnuvem.animations.AnimaStart
 import com.devsjura.file_apps.nexus_cdnuvem.databinding.ActivityRegisterBinding
 import com.devsjura.file_apps.nexus_cdnuvem.ui.login.LoginActivity
+import com.devsjura.file_apps.nexus_cdnuvem.validation.ValidatorInputs
+import com.google.android.material.snackbar.Snackbar
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -37,5 +40,26 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         animaStartRegister.objectAnimaImgTxt(binding.containerRegisterLogo, -15F, 1250L)
+
+        binding.btnCreateAccount.setOnClickListener {
+            val tstName = binding.etName.text.toString()
+            val okok = ValidatorInputs().isValidatorNames(tstName)
+            binding.etName.error = okok
+
+            val tstCPF = binding.etCpf.text.toString()
+           val okokCPF = ValidatorInputs().isValidatorCPF(tstCPF)
+
+            if (okokCPF != null){
+                binding.etCpf.error = okokCPF
+
+            } else {
+                binding.etCpf.error = null
+
+            }
+
+
+        }
+
+
     }
 }
