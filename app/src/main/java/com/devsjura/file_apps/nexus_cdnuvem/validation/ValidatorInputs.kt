@@ -1,8 +1,11 @@
 package com.devsjura.file_apps.nexus_cdnuvem.validation
 
+import android.text.TextWatcher
 import android.util.Log
 import android.util.Patterns
+import android.widget.EditText
 import androidx.core.R
+import com.devsjura.file_apps.nexus_cdnuvem.others.PhoneTextWatcher
 
 class ValidatorInputs {
 
@@ -75,5 +78,10 @@ class ValidatorInputs {
 
         return digitOne == cpfCalculo[9].digitToInt() && digitTwo == cpfCalculo[10].digitToInt()
     }
+
+    private fun isPhoneTextWatcher(edtPhone: EditText) {
+        PhoneTextWatcher(edtPhone)
+    }
+
 
 }

@@ -200,6 +200,7 @@
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_phone"
                 android:drawablePadding="12dp"
+                android:maxLength="22"
                 android:inputType="phone"
                 android:textColor="#FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>

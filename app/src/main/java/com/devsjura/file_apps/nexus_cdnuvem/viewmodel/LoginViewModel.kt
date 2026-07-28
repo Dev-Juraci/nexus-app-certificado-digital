@@ -65,15 +65,12 @@ class LoginViewModel(private val loginAttemptManager: LoginAttemptManager) : Vie
 
             .addOnFailureListener {
                 loginAttemptManager.logFailedAttempt()
-
                 if (loginAttemptManager.numberOfAttempts() <= 4) {
                     messageUser.value =
                         StatesLogin("E-mail ou senha inválidos.", false)
                     return@addOnFailureListener
                 }
-
                 checkInitialLock()
-
 
             }
 
