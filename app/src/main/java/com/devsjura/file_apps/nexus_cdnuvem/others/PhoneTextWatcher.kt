@@ -4,7 +4,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
 
-class PhoneTextWatcher(private val editText: EditText) : TextWatcher {
+abstract class PhoneTextWatcher(private val editText: EditText) : TextWatcher {
 
     private var isFormatting = false
     private var previousLength = 0

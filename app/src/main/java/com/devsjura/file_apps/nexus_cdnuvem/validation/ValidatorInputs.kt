@@ -1,11 +1,6 @@
 package com.devsjura.file_apps.nexus_cdnuvem.validation
 
-import android.text.TextWatcher
-import android.util.Log
 import android.util.Patterns
-import android.widget.EditText
-import androidx.core.R
-import com.devsjura.file_apps.nexus_cdnuvem.others.PhoneTextWatcher
 
 class ValidatorInputs {
 
@@ -53,7 +48,7 @@ class ValidatorInputs {
     }
 
 
-    private fun calucalorCPF(cpfCalculo: String): Boolean {
+    fun calucalorCPF(cpfCalculo: String): Boolean {
 
         var sum = 0
 
@@ -79,8 +74,51 @@ class ValidatorInputs {
         return digitOne == cpfCalculo[9].digitToInt() && digitTwo == cpfCalculo[10].digitToInt()
     }
 
-    private fun isPhoneTextWatcher(edtPhone: EditText) {
-        PhoneTextWatcher(edtPhone)
+    fun formatPhoneWhileTyping(numberValidator: String): String {
+
+        val resultFormated = StringBuilder()
+
+        when {
+            numberValidator.isNotEmpty() -> {
+                resultFormated.append("(")
+                resultFormated.append(numberValidator.take(2))
+            }
+
+            numberValidator.length >= 2 -> {
+                resultFormated.append(")")
+            }
+
+            numberValidator.length >= 3 -> {
+                resultFormated.append(" (")
+                resultFormated.append(numberValidator[2])
+                resultFormated.append(")")
+            }
+
+            numberValidator.length > 3 -> {
+                resultFormated.append(" ")
+                resultFormated.append(
+                    numberValidator.substring(
+                        startIndex = 3,
+                        endIndex = minOf(7, numberValidator.length)
+                    )
+                )
+            }
+
+            false -> {
+                resultFormated.append("-")
+                resultFormated.append(
+                    numberValidator.substring(
+                        startIndex = 7,
+                        endIndex = minOf(11, numberValidator.length)
+                    )
+                )
+            }
+
+
+        }
+
+        return numberValidator
+
     }
 
 

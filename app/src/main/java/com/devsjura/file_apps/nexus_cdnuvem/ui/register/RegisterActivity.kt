@@ -2,17 +2,16 @@ package com.devsjura.file_apps.nexus_cdnuvem.ui.register
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.widget.doAfterTextChanged
 import com.devsjura.file_apps.nexus_cdnuvem.R
 import com.devsjura.file_apps.nexus_cdnuvem.animations.AnimaStart
 import com.devsjura.file_apps.nexus_cdnuvem.databinding.ActivityRegisterBinding
 import com.devsjura.file_apps.nexus_cdnuvem.ui.login.LoginActivity
 import com.devsjura.file_apps.nexus_cdnuvem.validation.ValidatorInputs
-import com.google.android.material.snackbar.Snackbar
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -65,6 +64,45 @@ class RegisterActivity : AppCompatActivity() {
             } else {
                 binding.etEmail.error = null
             }
+
+
+            val tilPhone = binding.tilPhone
+            val etPhone = binding.etPhone
+
+            var formatando = false
+
+            etPhone.doAfterTextChanged { txtTyped ->
+
+                if (formatando) {
+                    return@doAfterTextChanged
+                }
+
+                val numbersProvided = txtTyped.toString().filter {
+                    it.isDigit()
+                }.take(11)
+
+                if (numbersProvided.isEmpty()) {
+                    tilPhone.error = "Informe seu número de telefone."
+                    return@doAfterTextChanged
+                }
+
+                if (numbersProvided.length != 11) {
+                    tilPhone.error = "Digite um telefone válido com DDD."
+
+                }
+
+                val formattedPhoneNumber = ValidatorInputs().formatPhoneWhileTyping(numbersProvided)
+
+                if (formattedPhoneNumber != txtTyped.toString()) {
+                    formatando = true
+                    etPhone.setText(formattedPhoneNumber)
+                    etPhone.setSelection(formattedPhoneNumber.length)
+                    formatando = false
+                }
+
+
+            }
+
 
         }
 
