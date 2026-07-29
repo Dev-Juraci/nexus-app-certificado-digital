@@ -114,10 +114,12 @@ class ValidatorInputs {
                 )
             }
 
+            else -> resultFormated
+
 
         }
 
-        return numberValidator
+        return numberValidator.toString()
 
     }
 

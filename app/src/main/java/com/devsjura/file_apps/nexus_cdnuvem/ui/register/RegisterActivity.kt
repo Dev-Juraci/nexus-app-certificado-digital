@@ -12,6 +12,7 @@ import com.devsjura.file_apps.nexus_cdnuvem.animations.AnimaStart
 import com.devsjura.file_apps.nexus_cdnuvem.databinding.ActivityRegisterBinding
 import com.devsjura.file_apps.nexus_cdnuvem.ui.login.LoginActivity
 import com.devsjura.file_apps.nexus_cdnuvem.validation.ValidatorInputs
+import com.google.android.material.snackbar.Snackbar
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -81,14 +82,16 @@ class RegisterActivity : AppCompatActivity() {
                     it.isDigit()
                 }.take(11)
 
-                if (numbersProvided.isEmpty()) {
+                if (numbersProvided.isBlank()) {
                     tilPhone.error = "Informe seu número de telefone."
                     return@doAfterTextChanged
                 }
 
                 if (numbersProvided.length != 11) {
                     tilPhone.error = "Digite um telefone válido com DDD."
-
+                    return@doAfterTextChanged
+                } else {
+                    tilPhone.error = null
                 }
 
                 val formattedPhoneNumber = ValidatorInputs().formatPhoneWhileTyping(numbersProvided)
@@ -99,9 +102,11 @@ class RegisterActivity : AppCompatActivity() {
                     etPhone.setSelection(formattedPhoneNumber.length)
                     formatando = false
                 }
-
-
             }
+
+            val umTeste = binding.etPhone.text.toString()
+
+            Snackbar.make(binding.root, umTeste, Snackbar.LENGTH_LONG).show()
 
 
         }
