@@ -97,10 +97,6 @@ class RegisterActivity : AppCompatActivity() {
                 binding.etEmail.error = null
             }
 
-//            val umTeste = binding.etPhone.text.toString()
-
-//            Snackbar.make(binding.root, umTeste, Snackbar.LENGTH_LONG).show()
-
 
         }
 

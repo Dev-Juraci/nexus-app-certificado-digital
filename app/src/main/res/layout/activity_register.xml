@@ -26,6 +26,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- Botão QR Code (Adicionado) -->
+        <ImageView
+            android:id="@+id/btnQrCode"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/ic_qr_code"
+            app:layout_constraintBottom_toBottomOf="@+id/tvBack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvBack"
+            app:tint="#8A94A6" />
+
 
         <LinearLayout
             android:id="@+id/containerRegisterLogo"
@@ -200,8 +211,8 @@
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_phone"
                 android:drawablePadding="12dp"
-                android:maxLength="22"
                 android:inputType="phone"
+                android:maxLength="22"
                 android:textColor="#FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
