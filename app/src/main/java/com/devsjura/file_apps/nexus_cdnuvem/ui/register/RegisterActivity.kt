@@ -41,6 +41,37 @@ class RegisterActivity : AppCompatActivity() {
 
         animaStartRegister.objectAnimaImgTxt(binding.containerRegisterLogo, -15F, 1250L)
 
+        val tilPhone = binding.tilPhone
+        val etPhone = binding.etPhone
+
+        var formatando = false
+
+        etPhone.doAfterTextChanged { txtTyped ->
+
+            if (formatando) return@doAfterTextChanged
+
+            val numbersProvided = txtTyped.toString().filter {
+                it.isDigit()
+            }.take(11)
+
+            if (numbersProvided.isBlank()) {
+                tilPhone.error = "Informe seu número de telefone."
+            } else if (numbersProvided.length != 11) {
+                tilPhone.error = "Digite um telefone válido com DDD."
+            } else {
+                tilPhone.error = null
+            }
+
+            val formattedPhoneNumber = ValidatorInputs().formatPhoneWhileTyping(numbersProvided)
+
+            if (formattedPhoneNumber != txtTyped.toString()) {
+                formatando = true
+                etPhone.setText(formattedPhoneNumber)
+                etPhone.setSelection(formattedPhoneNumber.length)
+                formatando = false
+            }
+        }
+
         binding.btnCreateAccount.setOnClickListener {
             val tstName = binding.etName.text.toString()
             val okok = ValidatorInputs().isValidatorNames(tstName)
@@ -66,47 +97,9 @@ class RegisterActivity : AppCompatActivity() {
                 binding.etEmail.error = null
             }
 
+//            val umTeste = binding.etPhone.text.toString()
 
-            val tilPhone = binding.tilPhone
-            val etPhone = binding.etPhone
-
-            var formatando = false
-
-            etPhone.doAfterTextChanged { txtTyped ->
-
-                if (formatando) {
-                    return@doAfterTextChanged
-                }
-
-                val numbersProvided = txtTyped.toString().filter {
-                    it.isDigit()
-                }.take(11)
-
-                if (numbersProvided.isBlank()) {
-                    tilPhone.error = "Informe seu número de telefone."
-                    return@doAfterTextChanged
-                }
-
-                if (numbersProvided.length != 11) {
-                    tilPhone.error = "Digite um telefone válido com DDD."
-                    return@doAfterTextChanged
-                } else {
-                    tilPhone.error = null
-                }
-
-                val formattedPhoneNumber = ValidatorInputs().formatPhoneWhileTyping(numbersProvided)
-
-                if (formattedPhoneNumber != txtTyped.toString()) {
-                    formatando = true
-                    etPhone.setText(formattedPhoneNumber)
-                    etPhone.setSelection(formattedPhoneNumber.length)
-                    formatando = false
-                }
-            }
-
-            val umTeste = binding.etPhone.text.toString()
-
-            Snackbar.make(binding.root, umTeste, Snackbar.LENGTH_LONG).show()
+//            Snackbar.make(binding.root, umTeste, Snackbar.LENGTH_LONG).show()
 
 
         }

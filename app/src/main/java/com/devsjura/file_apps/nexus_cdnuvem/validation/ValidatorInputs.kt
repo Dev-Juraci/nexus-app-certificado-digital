@@ -1,6 +1,8 @@
 package com.devsjura.file_apps.nexus_cdnuvem.validation
 
+import android.util.Log
 import android.util.Patterns
+import kotlin.math.log
 
 class ValidatorInputs {
 
@@ -78,50 +80,49 @@ class ValidatorInputs {
 
         val resultFormated = StringBuilder()
 
-        when {
-            numberValidator.isNotEmpty() -> {
-                resultFormated.append("(")
-                resultFormated.append(numberValidator.take(2))
-            }
-
-            numberValidator.length >= 2 -> {
-                resultFormated.append(")")
-            }
-
-            numberValidator.length >= 3 -> {
-                resultFormated.append(" (")
-                resultFormated.append(numberValidator[2])
-                resultFormated.append(")")
-            }
-
-            numberValidator.length > 3 -> {
-                resultFormated.append(" ")
-                resultFormated.append(
-                    numberValidator.substring(
-                        startIndex = 3,
-                        endIndex = minOf(7, numberValidator.length)
-                    )
-                )
-            }
-
-            false -> {
-                resultFormated.append("-")
-                resultFormated.append(
-                    numberValidator.substring(
-                        startIndex = 7,
-                        endIndex = minOf(11, numberValidator.length)
-                    )
-                )
-            }
-
-            else -> resultFormated
-
-
+        if (numberValidator.isNotEmpty()) {
+            resultFormated.append("(")
+            resultFormated.append(numberValidator.take(2))
         }
 
-        return numberValidator.toString()
+        if (numberValidator.length >= 2) {
+            resultFormated.append(")")
+        }
+
+        if (numberValidator.length >= 3) {
+            resultFormated.append(" (")
+            resultFormated.append(numberValidator[2])
+            resultFormated.append(")")
+        }
+
+        if (numberValidator.length > 3) {
+            resultFormated.append(" ")
+            resultFormated.append(
+                numberValidator.substring(
+                    startIndex = 3,
+                    endIndex = minOf(7, numberValidator.length)
+                )
+            )
+        }
+
+        if (numberValidator.length > 7) {
+
+            resultFormated.append("-")
+            resultFormated.append(
+                numberValidator.substring(
+                    startIndex = 7,
+                    endIndex = minOf(11, numberValidator.length)
+                )
+            )
+        }
+
+        return resultFormated.toString()
+
+        Log.i("aquino", resultFormated.toString())
 
     }
+
+
 
 
 }
