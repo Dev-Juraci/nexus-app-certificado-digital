@@ -12,6 +12,7 @@ import com.devsjura.file_apps.nexus_cdnuvem.R
 import com.devsjura.file_apps.nexus_cdnuvem.animations.AnimaStart
 import com.devsjura.file_apps.nexus_cdnuvem.databinding.ActivityRegisterBinding
 import com.devsjura.file_apps.nexus_cdnuvem.ui.login.LoginActivity
+import com.devsjura.file_apps.nexus_cdnuvem.ui.passwords.PasswordActivity
 import com.devsjura.file_apps.nexus_cdnuvem.validation.ValidatorInputs
 
 class RegisterActivity : AppCompatActivity() {
@@ -26,6 +27,7 @@ class RegisterActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(binding.root)
@@ -38,6 +40,7 @@ class RegisterActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
 
         animaStartRegister.objectAnimaImgTxt(binding.containerRegisterLogo, -15F, 1250L)
 
@@ -85,7 +88,7 @@ class RegisterActivity : AppCompatActivity() {
                     }
 
                     val formattedPhoneNumber =
-                        ValidatorInputs().formatPhoneWhileTyping(numbersProvided)
+                        ValidatorInputs.formatPhoneWhileTyping(numbersProvided)
 
                     if (formattedPhoneNumber != txtTyped) {
                         formatando = true
@@ -116,33 +119,30 @@ class RegisterActivity : AppCompatActivity() {
                 }
             })
 
-
-
         binding.btnCreateAccount.setOnClickListener {
-            val tstName = binding.etName.text.toString()
-            val okok = ValidatorInputs().isValidatorNames(tstName)
-            binding.etName.error = okok
+            val storingName = binding.etName.text.toString()
+            val isNameUser = ValidatorInputs.isValidatorNames(storingName)
+            binding.etName.error = isNameUser
 
-            val tstCPF = binding.etCpf.text.toString()
-            val okokCPF = ValidatorInputs().isValidatorCPF(tstCPF)
+            val storingCPF = binding.etCpf.text.toString()
+            val isCPFUser = ValidatorInputs.isValidatorCPF(storingCPF)
 
-            if (okokCPF != null) {
-                binding.etCpf.error = okokCPF
+            if (isCPFUser != null) {
+                binding.etCpf.error = isCPFUser
 
             } else {
                 binding.etCpf.error = null
 
             }
-
-            val tstEmail = binding.etEmail.text.toString()
-
-            val okokEmail = ValidatorInputs().isValidatorEmail(tstEmail)
-            if (okokEmail != null) {
-                binding.etEmail.error = okokEmail
+            val storingEmail = binding.etEmail.text.toString()
+            val isEmailUser = ValidatorInputs.isValidatorEmail(storingEmail)
+            if (isEmailUser != null) {
+                binding.etEmail.error = isEmailUser
             } else {
                 binding.etEmail.error = null
             }
 
+            startActivity(Intent(this@RegisterActivity, PasswordActivity::class.java))
 
         }
 

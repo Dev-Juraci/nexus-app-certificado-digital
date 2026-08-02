@@ -4,7 +4,7 @@ import android.util.Log
 import android.util.Patterns
 import kotlin.math.log
 
-class ValidatorInputs {
+object ValidatorInputs {
 
     fun isValidatorNames(receivesNames: String): String? {
 
