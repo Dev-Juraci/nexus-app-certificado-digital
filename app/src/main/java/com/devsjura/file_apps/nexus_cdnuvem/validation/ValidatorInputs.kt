@@ -118,11 +118,8 @@ class ValidatorInputs {
 
         return resultFormated.toString()
 
-        Log.i("aquino", resultFormated.toString())
 
     }
-
-
 
 
 }

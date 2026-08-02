@@ -2,17 +2,17 @@ package com.devsjura.file_apps.nexus_cdnuvem.ui.register
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.widget.doAfterTextChanged
 import com.devsjura.file_apps.nexus_cdnuvem.R
 import com.devsjura.file_apps.nexus_cdnuvem.animations.AnimaStart
 import com.devsjura.file_apps.nexus_cdnuvem.databinding.ActivityRegisterBinding
 import com.devsjura.file_apps.nexus_cdnuvem.ui.login.LoginActivity
 import com.devsjura.file_apps.nexus_cdnuvem.validation.ValidatorInputs
-import com.google.android.material.snackbar.Snackbar
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -46,31 +46,77 @@ class RegisterActivity : AppCompatActivity() {
 
         var formatando = false
 
-        etPhone.doAfterTextChanged { txtTyped ->
 
-            if (formatando) return@doAfterTextChanged
+        etPhone.addTextChangedListener(
+            object : TextWatcher {
 
-            val numbersProvided = txtTyped.toString().filter {
-                it.isDigit()
-            }.take(11)
+                private var previousText = ""
 
-            if (numbersProvided.isBlank()) {
-                tilPhone.error = "Informe seu número de telefone."
-            } else if (numbersProvided.length != 11) {
-                tilPhone.error = "Digite um telefone válido com DDD."
-            } else {
-                tilPhone.error = null
-            }
+                override fun afterTextChanged(p0: Editable?) {
 
-            val formattedPhoneNumber = ValidatorInputs().formatPhoneWhileTyping(numbersProvided)
+                    if (formatando) return
 
-            if (formattedPhoneNumber != txtTyped.toString()) {
-                formatando = true
-                etPhone.setText(formattedPhoneNumber)
-                etPhone.setSelection(formattedPhoneNumber.length)
-                formatando = false
-            }
-        }
+
+                    val txtTyped = p0.toString()
+
+                    val isDeleting = txtTyped.length < previousText.length
+
+
+                    var numbersProvided = txtTyped.filter {
+                        it.isDigit()
+                    }.take(11)
+
+                    if (isDeleting) {
+                        val previousDigits = previousText.filter {
+                            it.isDigit()
+                        }.take(11)
+
+                        if (numbersProvided.length == previousDigits.length && numbersProvided.isNotEmpty()) {
+                            numbersProvided = numbersProvided.dropLast(1)
+                        }
+
+                    }
+                    if (numbersProvided.isBlank()) {
+                        tilPhone.error = "Informe seu número de telefone."
+                    } else if (numbersProvided.length != 11) {
+                        tilPhone.error = "Digite um telefone válido com DDD."
+                    } else {
+                        tilPhone.error = null
+                    }
+
+                    val formattedPhoneNumber =
+                        ValidatorInputs().formatPhoneWhileTyping(numbersProvided)
+
+                    if (formattedPhoneNumber != txtTyped) {
+                        formatando = true
+                        etPhone.setText(formattedPhoneNumber)
+                        etPhone.setSelection(formattedPhoneNumber.length)
+                        formatando = false
+                    }
+
+
+                }
+
+                override fun beforeTextChanged(
+                    p0: CharSequence?,
+                    p1: Int,
+                    p2: Int,
+                    p3: Int,
+                ) {
+                    previousText = p0.toString()
+                }
+
+                override fun onTextChanged(
+                    p0: CharSequence?,
+                    p1: Int,
+                    p2: Int,
+                    p3: Int,
+                ) {
+                    null
+                }
+            })
+
+
 
         binding.btnCreateAccount.setOnClickListener {
             val tstName = binding.etName.text.toString()
