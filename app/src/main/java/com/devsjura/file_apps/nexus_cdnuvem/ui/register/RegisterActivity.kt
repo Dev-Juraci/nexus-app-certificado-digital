@@ -91,9 +91,7 @@ class RegisterActivity : AppCompatActivity() {
             val storingName = binding.etName.text.toString()
             val storingCPF = binding.etCpf.text.toString()
             val storingEmail = binding.etEmail.text.toString()
-            val storingNumber = binding.etPhone.text.toString().filter {
-                it.isDigit()
-            }.take(11)
+            val storingNumber = binding.etPhone.text.toString()
             validateInputs(storingName, storingCPF, storingEmail, storingNumber)
 
         }
