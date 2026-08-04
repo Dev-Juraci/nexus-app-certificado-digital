@@ -162,6 +162,9 @@ class RegisterActivity : AppCompatActivity() {
 
         val isCPFUser = ValidatorInputs.isValidatorCPF(storCPF)
         val isEmailUser = ValidatorInputs.isValidatorEmail(storEmail)
+        val isNumberUser = ValidatorInputs.formatPhoneWhileTyping(storNumber).filter {
+            it.isDigit()
+        }.take(11)
 
 
         val isNameUser = ValidatorInputs.isValidatorNames(storName)
@@ -177,8 +180,9 @@ class RegisterActivity : AppCompatActivity() {
         } else {
             binding.etCpf.error = isCPFUser
             binding.etEmail.error = isEmailUser
-            if (storNumber.length != 11)
+            if (isNumberUser.length != 11) {
                 binding.tilPhone.error = "Número de telefone inválido."
+            }
         }
 
     }
