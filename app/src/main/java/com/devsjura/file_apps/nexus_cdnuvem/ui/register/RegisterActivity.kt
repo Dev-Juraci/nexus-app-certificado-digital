@@ -14,6 +14,9 @@ import com.devsjura.file_apps.nexus_cdnuvem.databinding.ActivityRegisterBinding
 import com.devsjura.file_apps.nexus_cdnuvem.ui.login.LoginActivity
 import com.devsjura.file_apps.nexus_cdnuvem.ui.passwords.PasswordActivity
 import com.devsjura.file_apps.nexus_cdnuvem.validation.ValidatorInputs
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
+import kotlin.getValue
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -25,6 +28,13 @@ class RegisterActivity : AppCompatActivity() {
         AnimaStart()
     }
 
+    private val tilPhone by lazy {
+        binding.tilPhone
+    }
+
+    private val etPhone by lazy {
+        binding.etPhone
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -44,11 +54,6 @@ class RegisterActivity : AppCompatActivity() {
 
         animaStartRegister.objectAnimaImgTxt(binding.containerRegisterLogo, -15F, 1250L)
 
-        val tilPhone = binding.tilPhone
-        val etPhone = binding.etPhone
-
-        var formatando = false
-
 
         etPhone.addTextChangedListener(
             object : TextWatcher {
@@ -57,48 +62,11 @@ class RegisterActivity : AppCompatActivity() {
 
                 override fun afterTextChanged(p0: Editable?) {
 
-                    if (formatando) return
-
-
                     val txtTyped = p0.toString()
-
-                    val isDeleting = txtTyped.length < previousText.length
-
-
-                    var numbersProvided = txtTyped.filter {
-                        it.isDigit()
-                    }.take(11)
-
-                    if (isDeleting) {
-                        val previousDigits = previousText.filter {
-                            it.isDigit()
-                        }.take(11)
-
-                        if (numbersProvided.length == previousDigits.length && numbersProvided.isNotEmpty()) {
-                            numbersProvided = numbersProvided.dropLast(1)
-                        }
-
-                    }
-                    if (numbersProvided.isBlank()) {
-                        tilPhone.error = "Informe seu número de telefone."
-                    } else if (numbersProvided.length != 11) {
-                        tilPhone.error = "Digite um telefone válido com DDD."
-                    } else {
-                        tilPhone.error = null
-                    }
-
-                    val formattedPhoneNumber =
-                        ValidatorInputs.formatPhoneWhileTyping(numbersProvided)
-
-                    if (formattedPhoneNumber != txtTyped) {
-                        formatando = true
-                        etPhone.setText(formattedPhoneNumber)
-                        etPhone.setSelection(formattedPhoneNumber.length)
-                        formatando = false
-                    }
-
+                    formatAndValidatePhone(previousText, txtTyped, tilPhone, etPhone)
 
                 }
+
 
                 override fun beforeTextChanged(
                     p0: CharSequence?,
@@ -121,31 +89,97 @@ class RegisterActivity : AppCompatActivity() {
 
         binding.btnCreateAccount.setOnClickListener {
             val storingName = binding.etName.text.toString()
-            val isNameUser = ValidatorInputs.isValidatorNames(storingName)
-            binding.etName.error = isNameUser
-
             val storingCPF = binding.etCpf.text.toString()
-            val isCPFUser = ValidatorInputs.isValidatorCPF(storingCPF)
-
-            if (isCPFUser != null) {
-                binding.etCpf.error = isCPFUser
-
-            } else {
-                binding.etCpf.error = null
-
-            }
             val storingEmail = binding.etEmail.text.toString()
-            val isEmailUser = ValidatorInputs.isValidatorEmail(storingEmail)
-            if (isEmailUser != null) {
-                binding.etEmail.error = isEmailUser
-            } else {
-                binding.etEmail.error = null
-            }
-
-            startActivity(Intent(this@RegisterActivity, PasswordActivity::class.java))
+            val storingNumber = binding.etPhone.text.toString().filter {
+                it.isDigit()
+            }.take(11)
+            validateInputs(storingName, storingCPF, storingEmail, storingNumber)
 
         }
 
+
+    }
+
+
+    private fun formatAndValidatePhone(
+        previousText: String,
+        txtTyped: String,
+        tilPhone: TextInputLayout,
+        etPhone: TextInputEditText,
+    ) {
+
+        var formatting = false
+
+
+        if (formatting) return
+
+
+        val isDeleting = txtTyped.length < previousText.length
+
+
+        var numbersProvided = txtTyped.filter {
+            it.isDigit()
+        }.take(11)
+
+        if (isDeleting) {
+            val previousDigits = previousText.filter {
+                it.isDigit()
+            }.take(11)
+
+            if (numbersProvided.length == previousDigits.length && numbersProvided.isNotEmpty()) {
+                numbersProvided = numbersProvided.dropLast(1)
+            }
+
+        }
+        if (numbersProvided.isBlank()) {
+            tilPhone.error = "Informe seu número de telefone."
+        } else if (numbersProvided.length != 11) {
+            tilPhone.error = "Digite um telefone válido com DDD."
+        } else {
+            tilPhone.error = null
+        }
+
+        val formattedPhoneNumber =
+            ValidatorInputs.formatPhoneWhileTyping(numbersProvided)
+
+        if (formattedPhoneNumber != txtTyped) {
+            formatting = true
+            etPhone.setText(formattedPhoneNumber)
+            etPhone.setSelection(formattedPhoneNumber.length)
+            formatting = false
+        }
+
+    }
+
+
+    private fun validateInputs(
+        storName: String,
+        storCPF: String,
+        storEmail: String,
+        storNumber: String,
+    ) {
+
+        val isCPFUser = ValidatorInputs.isValidatorCPF(storCPF)
+        val isEmailUser = ValidatorInputs.isValidatorEmail(storEmail)
+
+
+        val isNameUser = ValidatorInputs.isValidatorNames(storName)
+        binding.etName.error = isNameUser
+
+
+        if (isEmailUser == null && isNameUser == null && isCPFUser == null) {
+            binding.etEmail.error = null
+            binding.etCpf.error = null
+            binding.tilPhone.error = null
+            startActivity(Intent(this@RegisterActivity, PasswordActivity::class.java))
+
+        } else {
+            binding.etCpf.error = isCPFUser
+            binding.etEmail.error = isEmailUser
+            if (storNumber.length != 11)
+                binding.tilPhone.error = "Número de telefone inválido."
+        }
 
     }
 }

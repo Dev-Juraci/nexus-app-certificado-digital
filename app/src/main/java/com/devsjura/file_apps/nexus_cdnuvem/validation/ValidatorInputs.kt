@@ -31,7 +31,7 @@ object ValidatorInputs {
             isValidatorCpf.isEmpty() -> "Informe seu CPF."
             isValidatorCpf.length != 11 -> "O CPF deve conter 11 dígitos."
             isValidatorCpf.all { it == isValidatorCpf[0] } -> "CPF inválido."
-            !calucalorCPF(isValidatorCpf) -> "Errado"
+            !calucalorCPF(isValidatorCpf) -> "CPF inválido"
             else -> null
         }
 
