@@ -12,6 +12,10 @@ class PasswordActivity : AppCompatActivity() {
 
     private lateinit var bindingPass: ActivityPasswordBinding
 
+    private val sharedPreferencesPass by lazy {
+        getSharedPreferences("secure_prefs", MODE_PRIVATE)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -22,5 +26,12 @@ class PasswordActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        val names = sharedPreferencesPass.getString("app_encrypted_settings_names", "")
+        val email = sharedPreferencesPass.getString("app_encrypted_settings_email", "")
+        val cpf = sharedPreferencesPass.getString("app_encrypted_settings_cpf", "")
+        val numb = sharedPreferencesPass.getString("app_encrypted_settings_number", "")
+
+        bindingPass.txtTeste.text = "Nome: $names, Email: $email, CPF: $cpf, N° de Telefone: $numb"
+
     }
 }

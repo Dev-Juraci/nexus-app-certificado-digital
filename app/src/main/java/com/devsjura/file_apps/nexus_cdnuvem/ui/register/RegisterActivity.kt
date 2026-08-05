@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.devsjura.file_apps.nexus_cdnuvem.R
@@ -19,6 +20,8 @@ import com.google.android.material.textfield.TextInputLayout
 import kotlin.getValue
 
 class RegisterActivity : AppCompatActivity() {
+
+    private var isFormatting = false
 
     private val binding by lazy {
         ActivityRegisterBinding.inflate(layoutInflater)
@@ -83,7 +86,6 @@ class RegisterActivity : AppCompatActivity() {
                     p2: Int,
                     p3: Int,
                 ) {
-                    null
                 }
             })
 
@@ -107,10 +109,10 @@ class RegisterActivity : AppCompatActivity() {
         etPhone: TextInputEditText,
     ) {
 
-        var formatting = false
 
 
-        if (formatting) return
+
+        if (isFormatting) return
 
 
         val isDeleting = txtTyped.length < previousText.length
@@ -141,11 +143,13 @@ class RegisterActivity : AppCompatActivity() {
         val formattedPhoneNumber =
             ValidatorInputs.formatPhoneWhileTyping(numbersProvided)
 
+
+
         if (formattedPhoneNumber != txtTyped) {
-            formatting = true
+            isFormatting = true
             etPhone.setText(formattedPhoneNumber)
             etPhone.setSelection(formattedPhoneNumber.length)
-            formatting = false
+            isFormatting = false
         }
 
     }
@@ -157,7 +161,7 @@ class RegisterActivity : AppCompatActivity() {
         storEmail: String,
         storNumber: String,
     ) {
-
+        val isNameUser = ValidatorInputs.isValidatorNames(storName)
         val isCPFUser = ValidatorInputs.isValidatorCPF(storCPF)
         val isEmailUser = ValidatorInputs.isValidatorEmail(storEmail)
         val isNumberUser = ValidatorInputs.formatPhoneWhileTyping(storNumber).filter {
@@ -165,8 +169,25 @@ class RegisterActivity : AppCompatActivity() {
         }.take(11)
 
 
-        val isNameUser = ValidatorInputs.isValidatorNames(storName)
         binding.etName.error = isNameUser
+
+        with(getSharedPreferences("secure_prefs", MODE_PRIVATE)) {
+            this.edit {
+                putString("app_encrypted_settings_names", isNameUser)
+            }
+
+            this.edit {
+                putString("app_encrypted_settings_cpf", isCPFUser)
+            }
+
+            this.edit {
+                putString("app_encrypted_settings_email", isEmailUser)
+            }
+
+            this.edit {
+                putString("app_encrypted_settings_number", isNumberUser)
+            }
+        }
 
 
         if (isEmailUser == null && isNameUser == null && isCPFUser == null) {
