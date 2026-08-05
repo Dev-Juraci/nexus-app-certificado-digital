@@ -110,8 +110,6 @@ class RegisterActivity : AppCompatActivity() {
     ) {
 
 
-
-
         if (isFormatting) return
 
 
@@ -171,29 +169,27 @@ class RegisterActivity : AppCompatActivity() {
 
         binding.etName.error = isNameUser
 
-        with(getSharedPreferences("secure_prefs", MODE_PRIVATE)) {
-            this.edit {
-                putString("app_encrypted_settings_names", isNameUser)
-            }
-
-            this.edit {
-                putString("app_encrypted_settings_cpf", isCPFUser)
-            }
-
-            this.edit {
-                putString("app_encrypted_settings_email", isEmailUser)
-            }
-
-            this.edit {
-                putString("app_encrypted_settings_number", isNumberUser)
-            }
-        }
-
-
         if (isEmailUser == null && isNameUser == null && isCPFUser == null) {
             binding.etEmail.error = null
             binding.etCpf.error = null
             binding.tilPhone.error = null
+            with(getSharedPreferences("secure_prefs", MODE_PRIVATE)) {
+                this.edit {
+                    putString("app_encrypted_settings_names", isNameUser) ?: "Haja Name"
+                }
+
+                this.edit {
+                    putString("app_encrypted_settings_cpf", isCPFUser) ?: "Haja CPf"
+                }
+
+                this.edit {
+                    putString("app_encrypted_settings_email", isEmailUser) ?: "Haja Email"
+                }
+
+                this.edit {
+                    putString("app_encrypted_settings_number", isNumberUser)
+                }
+            }
             startActivity(Intent(this@RegisterActivity, PasswordActivity::class.java))
 
         } else {
