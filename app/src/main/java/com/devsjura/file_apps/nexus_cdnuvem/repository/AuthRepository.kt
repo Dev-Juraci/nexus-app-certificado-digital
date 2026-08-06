@@ -7,6 +7,12 @@ import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.tasks.await
 
 
+enum class TipoIdentificador {
+    EMAIL,
+    CPF,
+    TELEFONE
+}
+
 data class UsersInfo(
     val uid: String = "",
     val fullNames: String = "",
@@ -42,7 +48,14 @@ class AuthRepository(
 
         fbFire.collection("indice_login").document(numberAthRepo)
             .set(mapOf("email" to emailAthRepo)).await()
+    }
 
+    private suspend fun resolveEmail(identifierRE: String, tipo: TipoIdentificador): String {
+        if (tipo == TipoIdentificador.EMAIL) return identifierRE
+
+        val doc = fbFire.collection("indice_login").document(identifierRE).get().await()
+
+        return doc.getString("email") ?: throw Exception("Usuário não encontrado")
 
     }
 
