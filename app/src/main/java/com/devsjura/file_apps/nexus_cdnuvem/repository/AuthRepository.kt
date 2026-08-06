@@ -59,4 +59,9 @@ class AuthRepository(
 
     }
 
+    suspend fun login(identifierLogin: String, secureLogin: String, type: TipoIdentificador) {
+        val email = resolveEmail(identifierLogin, type)
+        firebaseAuth.signInWithEmailAndPassword(email, secureLogin)
+    }
+
 }
