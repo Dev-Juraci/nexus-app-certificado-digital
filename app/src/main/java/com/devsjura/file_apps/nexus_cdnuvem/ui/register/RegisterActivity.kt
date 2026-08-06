@@ -162,10 +162,6 @@ class RegisterActivity : AppCompatActivity() {
         val isNameUser = ValidatorInputs.isValidatorNames(storName)
         val isCPFUser = ValidatorInputs.isValidatorCPF(storCPF)
         val isEmailUser = ValidatorInputs.isValidatorEmail(storEmail)
-        val isNumberUser = ValidatorInputs.formatPhoneWhileTyping(storNumber).filter {
-            it.isDigit()
-        }.take(11)
-
         val phoneDigits = storNumber.filter {
             it.isDigit()
         }.take(11)

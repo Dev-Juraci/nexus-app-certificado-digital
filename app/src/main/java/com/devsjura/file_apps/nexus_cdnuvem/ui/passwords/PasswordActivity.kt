@@ -12,10 +12,6 @@ class PasswordActivity : AppCompatActivity() {
 
     private lateinit var bindingPass: ActivityPasswordBinding
 
-//    private val sharedPreferencesPass by lazy {
-//        getSharedPreferences("secure_prefs", MODE_PRIVATE)
-//    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
