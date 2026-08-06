@@ -1,9 +1,49 @@
 package com.devsjura.file_apps.nexus_cdnuvem.repository
 
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.firestore
+import kotlinx.coroutines.tasks.await
+
+
+data class UsersInfo(
+    val uid: String = "",
+    val fullNames: String = "",
+    val cpfUser: String = "",
+    val emailUser: String = "",
+    val numberUser: String = "",
+)
 
 class AuthRepository(
-    private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
-) {
+    private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance(),
+    private val fbFire: FirebaseFirestore = Firebase.firestore,
+
+    ) {
+
+
+    suspend fun signUpUsers(
+        nameAthRepo: String,
+        cpfAthRepo: String,
+        emailAthRepo: String,
+        passAthRepo: String,
+        numberAthRepo: String,
+    ) {
+
+        val result = firebaseAuth.createUserWithEmailAndPassword(emailAthRepo, passAthRepo).await()
+        val uuid = result?.user?.uid ?: throw Exception("Falha ao criar usuário")
+
+        val userAthRepo = UsersInfo(uuid, nameAthRepo, cpfAthRepo, emailAthRepo, nameAthRepo)
+
+        fbFire.collection("usersApp").document(uuid).set(userAthRepo).await()
+
+        fbFire.collection("indice_login").document(cpfAthRepo).set(mapOf("email" to emailAthRepo))
+            .await()
+
+        fbFire.collection("indice_login").document(numberAthRepo)
+            .set(mapOf("email" to emailAthRepo)).await()
+
+
+    }
 
 }

@@ -8,7 +8,6 @@ import com.google.firebase.firestore.firestore
 
 class RegisterUsersViewModel(
     private val authFirebase: AuthRepository = AuthRepository(),
-    private val fbFire: FirebaseFirestore = Firebase.firestore,
 ) : ViewModel() {
 
 
