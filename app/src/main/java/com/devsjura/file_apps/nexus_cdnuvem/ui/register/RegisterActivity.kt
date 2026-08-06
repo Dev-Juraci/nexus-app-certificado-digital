@@ -190,7 +190,7 @@ class RegisterActivity : AppCompatActivity() {
         } else {
             binding.etCpf.error = isCPFUser
             binding.etEmail.error = isEmailUser
-            if (isNumberUser.length != 11) {
+            if (phoneDigits.length != 11) {
                 binding.tilPhone.error = "Número de telefone inválido."
             }
         }
