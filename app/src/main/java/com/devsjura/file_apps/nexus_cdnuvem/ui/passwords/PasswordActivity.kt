@@ -35,7 +35,6 @@ class PasswordActivity : AppCompatActivity() {
         val cpf = sharedPreferencesPass.getString("app_encrypted_settings_cpf", "")
         val numb = sharedPreferencesPass.getString("app_encrypted_settings_number", "")
 
-        bindingPass.txtTeste.text = "Nome: $names, Email: $email, CPF: $cpf, N° de Telefone: $numb"
 
     }
 }

@@ -166,30 +166,25 @@ class RegisterActivity : AppCompatActivity() {
             it.isDigit()
         }.take(11)
 
+        val phoneDigits = storNumber.filter {
+            it.isDigit()
+        }.take(11)
+
 
         binding.etName.error = isNameUser
 
-        if (isEmailUser == null && isNameUser == null && isCPFUser == null) {
+        if (isEmailUser == null && isNameUser == null && isCPFUser == null && phoneDigits.length == 11) {
             binding.etEmail.error = null
             binding.etCpf.error = null
             binding.tilPhone.error = null
-            with(getSharedPreferences("secure_prefs", MODE_PRIVATE)) {
-                this.edit {
-                    putString("app_encrypted_settings_names", isNameUser) ?: "Haja Name"
-                }
+            getSharedPreferences("secure_prefs", MODE_PRIVATE).edit {
 
-                this.edit {
-                    putString("app_encrypted_settings_cpf", isCPFUser) ?: "Haja CPf"
-                }
-
-                this.edit {
-                    putString("app_encrypted_settings_email", isEmailUser) ?: "Haja Email"
-                }
-
-                this.edit {
-                    putString("app_encrypted_settings_number", isNumberUser)
-                }
+                putString("app_encrypted_settings_names", storName)
+                putString("app_encrypted_settings_cpf", storCPF)
+                putString("app_encrypted_settings_email", storEmail)
+                putString("app_encrypted_settings_number", phoneDigits)
             }
+
             startActivity(Intent(this@RegisterActivity, PasswordActivity::class.java))
 
         } else {
