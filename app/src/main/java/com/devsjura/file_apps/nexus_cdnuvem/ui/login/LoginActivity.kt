@@ -64,7 +64,6 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
         animaStart.objectAnimaImgTxt(binding.containerLogo, -20F, 1250L)
-
         loginViewModel.checkInitialLock()
 
 
@@ -88,7 +87,6 @@ class LoginActivity : AppCompatActivity() {
             }
 
         }
-
 
 
 
@@ -136,8 +134,7 @@ class LoginActivity : AppCompatActivity() {
 
                 }
 
-                checkingInformation(inputUserEmail, passwInputUser)
-
+                loginViewModel.checkingInformation(inputUserEmail, passwInputUser)
 
             }
 
@@ -145,10 +142,10 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    private fun checkingInformation(inEm: String, paIn: String) {
-        loginViewModel.loginUserMain(inEm, paIn)
-
-    }
+//    private fun checkingInformation(inEm: String, paIn: String) {
+//        loginViewModel.loginUserMain(inEm, paIn)
+//
+//    }
 
 
 }

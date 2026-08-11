@@ -74,8 +74,10 @@ class LoginViewModel(private val loginAttemptManager: LoginAttemptManager) : Vie
 
             }
 
+    }
 
-
+     fun checkingInformation(inEm: String, paIn: String){
+        loginUserMain(inEm, paIn)
     }
 
 

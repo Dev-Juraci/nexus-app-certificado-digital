@@ -179,6 +179,29 @@
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
+                <ProgressBar
+                    android:id="@+id/progressBarLogin"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="24dp"
+                    android:indeterminateTint="#00E5FF"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/txtAuthLogin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="8dp"
+                    android:text="Autenticando..."
+                    android:textColor="#94A3B8"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnLogin"
                     android:layout_width="match_parent"
@@ -239,7 +262,7 @@
                         android:textColor="#E55B6C"
                         android:textSize="15sp"
                         android:textStyle="bold"
-                        tools:text="Muitas tentativas erradas. Tente novamente em 15 minutes minuto(s)." />
+                        tools:text="Muitas tentativas erradas. Tente novamente em 15 minutos." />
                 </LinearLayout>
 
                 <!-- Texto de suporte embaixo do card para preencher o visual de forma limpa -->
