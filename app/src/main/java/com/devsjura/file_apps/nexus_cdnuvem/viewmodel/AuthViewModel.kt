@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.devsjura.file_apps.nexus_cdnuvem.others.IdentificadorUtils
+import com.devsjura.file_apps.nexus_cdnuvem.others.TipoIdentificador
 import com.devsjura.file_apps.nexus_cdnuvem.repository.AuthRepository
 import kotlinx.coroutines.launch
 
@@ -14,7 +16,7 @@ sealed class AuthState {
     data class Error(val msgErro: String) : AuthState()
 }
 
-class AuthViewModel(private val authViewModel: AuthRepository) : ViewModel() {
+class AuthViewModel(private val authViewModel: AuthRepository = AuthRepository()) : ViewModel() {
 
     private val _stateRegistration = MutableLiveData<AuthState>(AuthState.Idle)
     val stateRegistration: LiveData<AuthState> = _stateRegistration
@@ -52,5 +54,23 @@ class AuthViewModel(private val authViewModel: AuthRepository) : ViewModel() {
 
 
     }
+
+    fun login(identificador: String, userSecure: String) {
+        _loginState.value = AuthState.LoadingAuth
+
+        viewModelScope.launch {
+            try {
+                val typeAuth = IdentificadorUtils.detectType(identificador)
+                authViewModel.login(identificador, userSecure, typeAuth)
+                _loginState.value = AuthState.successAuth
+
+            } catch (e: Exception) {
+                _loginState.value = AuthState.Error(e.message ?: "Credenciais inválidas")
+            }
+        }
+
+
+    }
+
 
 }
