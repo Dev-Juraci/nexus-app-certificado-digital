@@ -10,12 +10,12 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.marginTop
 import com.devsjura.file_apps.nexus_cdnuvem.R
 import com.devsjura.file_apps.nexus_cdnuvem.databinding.ActivityPasswordBinding
 import com.devsjura.file_apps.nexus_cdnuvem.ui.home.MainActivity
 import com.devsjura.file_apps.nexus_cdnuvem.viewmodel.AuthState
 import com.devsjura.file_apps.nexus_cdnuvem.viewmodel.AuthViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class PasswordActivity : AppCompatActivity() {
 
@@ -41,6 +41,17 @@ class PasswordActivity : AppCompatActivity() {
         val cpf = sharedPreferencesPass.getString("app_encrypted_settings_cpf", "")
         val numb = sharedPreferencesPass.getString("app_encrypted_settings_number", "")
 
+        bindingPass.btnSubmit.setOnClickListener {
+            val testPai = bindingPass.tilPassword
+            val test = bindingPass.etPassword.text.toString()
+            if (test.isBlank() && test.length != 6){
+                testPai.error = "Informe uma senha válida com no mínimo 6 caracteres."
+            }
+
+            viewModel.registerUsers(names, email, cpf, numb, test)
+
+        }
+
         observeState()
 
 
@@ -50,7 +61,7 @@ class PasswordActivity : AppCompatActivity() {
         viewModel.loginState.observe(this) { state ->
 
             when (state) {
-                is AuthState.LoadingAuth {
+                is AuthState.LoadingAuth -> {
 
                     val params = bindingPass.btnSubmit as LinearLayout.LayoutParams
                     params.topMargin = 130.toPx()
@@ -59,11 +70,18 @@ class PasswordActivity : AppCompatActivity() {
                     bindingPass.btnSubmit.isEnabled = false
                 }
 
-                is AuthState.successAuth {
+                is AuthState.successAuth -> {
                     bindingPass.progressBarRegis.visibility = View.GONE
                     bindingPass.txtAuthRegis.visibility = View.GONE
                     startActivity(Intent(this@PasswordActivity, MainActivity::class.java))
                     finish()
+                }
+
+                is AuthState.Error -> {
+                    bindingPass.progressBarRegis.visibility = View.GONE
+                    bindingPass.txtAuthRegis.visibility = View.GONE
+                    bindingPass.btnSubmit.isEnabled = false
+                    Snackbar.make(bindingPass.root, state.msgErro, Snackbar.LENGTH_LONG).show()
                 }
 
 

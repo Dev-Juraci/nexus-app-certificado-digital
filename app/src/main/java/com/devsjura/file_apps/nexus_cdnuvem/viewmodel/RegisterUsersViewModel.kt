@@ -24,10 +24,10 @@ class AuthViewModel(private val authViewModel: AuthRepository = AuthRepository()
     val loginState = MutableLiveData<AuthState>(AuthState.Idle)
 
     fun registerUsers(
-        namesAuViMo: String,
-        emailAuViMo: String,
-        cpfAuViMo: String,
-        phoneAuViMo: String,
+        namesAuViMo: String?,
+        emailAuViMo: String?,
+        cpfAuViMo: String?,
+        phoneAuViMo: String?,
         passwordAuViMo: String,
     ) {
 
