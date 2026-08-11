@@ -1,5 +1,6 @@
 package com.devsjura.file_apps.nexus_cdnuvem.repository
 
+import com.devsjura.file_apps.nexus_cdnuvem.others.TipoIdentificador
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -7,11 +8,6 @@ import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.tasks.await
 
 
-enum class TipoIdentificador {
-    EMAIL,
-    CPF,
-    TELEFONE
-}
 
 data class UsersInfo(
     val uid: String = "",
