@@ -24,7 +24,7 @@ class AuthRepository(
 
 
     suspend fun signUpUsers(
-        nameAthRepo: String,
+        nameAthRepo : String,
         cpfAthRepo: String,
         emailAthRepo: String,
         passAthRepo: String,
@@ -37,7 +37,7 @@ class AuthRepository(
 
         val uuid = result.user?.uid ?: throw Exception("Falha ao criar usuário")
 
-        val userAthRepo = UsersInfo(uuid, nameAthRepo, cpfAthRepo, emailAthRepo, nameAthRepo)
+        val userAthRepo = UsersInfo(uuid, nameAthRepo, cpfAthRepo, emailAthRepo, numberAthRepo)
 
         fbFire.collection("usersApp").document(uuid).set(userAthRepo).await()
 

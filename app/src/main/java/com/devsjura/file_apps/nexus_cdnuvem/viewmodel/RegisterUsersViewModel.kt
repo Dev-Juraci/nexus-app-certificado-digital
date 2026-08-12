@@ -38,8 +38,8 @@ class AuthViewModel(private val authViewModel: AuthRepository = AuthRepository()
             try {
                 authViewModel.signUpUsers(
                     namesAuViMo,
-                    emailAuViMo,
                     cpfAuViMo,
+                    emailAuViMo,
                     phoneAuViMo,
                     passwordAuViMo
                 )

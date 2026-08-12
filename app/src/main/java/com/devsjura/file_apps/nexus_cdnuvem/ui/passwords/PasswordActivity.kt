@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -37,12 +38,13 @@ class PasswordActivity : AppCompatActivity() {
             getSharedPreferences("secure_prefs", MODE_PRIVATE)
 
         val names =
-            sharedPreferencesPass.getString("app_encrypted_settings_names", "").toString()
+            sharedPreferencesPass.getString("app_encrypted_settings_names", "").toString().trim()
         val email =
-            sharedPreferencesPass.getString("app_encrypted_settings_email", "").toString()
-        val cpf = sharedPreferencesPass.getString("app_encrypted_settings_cpf", "").toString()
+            sharedPreferencesPass.getString("app_encrypted_settings_email", "").toString().trim()
+        val cpf =
+            sharedPreferencesPass.getString("app_encrypted_settings_cpf", "").toString().trim()
         val numb =
-            sharedPreferencesPass.getString("app_encrypted_settings_number", "").toString()
+            sharedPreferencesPass.getString("app_encrypted_settings_number", "").toString().trim()
 
 
 
@@ -54,7 +56,7 @@ class PasswordActivity : AppCompatActivity() {
                 testPai.error = "Informe uma senha válida com no mínimo 6 caracteres."
             }
 
-
+            Toast.makeText(this, "email: $email", Toast.LENGTH_SHORT).show()
 
             viewModel.registerUsers(names, email, cpf, numb, test)
 
@@ -71,8 +73,9 @@ class PasswordActivity : AppCompatActivity() {
             when (state) {
                 is AuthState.LoadingAuth -> {
 
-                    val params = bindingPass.btnSubmit as ConstraintLayout.LayoutParams
+                    val params = bindingPass.btnSubmit.layoutParams as ConstraintLayout.LayoutParams
                     params.topMargin = 130.toPx()
+                    bindingPass.btnSubmit.layoutParams = params
                     bindingPass.progressBarRegis.visibility = View.VISIBLE
                     bindingPass.txtAuthRegis.visibility = View.VISIBLE
                     bindingPass.btnSubmit.isEnabled = false
@@ -88,7 +91,7 @@ class PasswordActivity : AppCompatActivity() {
                 is AuthState.Error -> {
                     bindingPass.progressBarRegis.visibility = View.GONE
                     bindingPass.txtAuthRegis.visibility = View.GONE
-                    bindingPass.btnSubmit.isEnabled = false
+                    bindingPass.btnSubmit.isEnabled = true
                     Snackbar.make(bindingPass.root, state.msgErro, Snackbar.LENGTH_LONG).show()
                 }
 
