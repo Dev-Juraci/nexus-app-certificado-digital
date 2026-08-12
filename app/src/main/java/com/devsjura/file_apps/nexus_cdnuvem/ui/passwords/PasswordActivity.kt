@@ -4,10 +4,10 @@ import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
 import android.view.View
-import android.widget.LinearLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.devsjura.file_apps.nexus_cdnuvem.R
@@ -36,17 +36,25 @@ class PasswordActivity : AppCompatActivity() {
         val sharedPreferencesPass =
             getSharedPreferences("secure_prefs", MODE_PRIVATE)
 
-        val names = sharedPreferencesPass.getString("app_encrypted_settings_names", "")
-        val email = sharedPreferencesPass.getString("app_encrypted_settings_email", "")
-        val cpf = sharedPreferencesPass.getString("app_encrypted_settings_cpf", "")
-        val numb = sharedPreferencesPass.getString("app_encrypted_settings_number", "")
+        val names =
+            sharedPreferencesPass.getString("app_encrypted_settings_names", "").toString()
+        val email =
+            sharedPreferencesPass.getString("app_encrypted_settings_email", "").toString()
+        val cpf = sharedPreferencesPass.getString("app_encrypted_settings_cpf", "").toString()
+        val numb =
+            sharedPreferencesPass.getString("app_encrypted_settings_number", "").toString()
+
+
 
         bindingPass.btnSubmit.setOnClickListener {
+
             val testPai = bindingPass.tilPassword
             val test = bindingPass.etPassword.text.toString()
-            if (test.isBlank() && test.length != 6){
+            if (test.isBlank() && test.length <= 5) {
                 testPai.error = "Informe uma senha válida com no mínimo 6 caracteres."
             }
+
+
 
             viewModel.registerUsers(names, email, cpf, numb, test)
 
@@ -58,12 +66,12 @@ class PasswordActivity : AppCompatActivity() {
     }
 
     private fun observeState() {
-        viewModel.loginState.observe(this) { state ->
+        viewModel.stateRegistration.observe(this) { state ->
 
             when (state) {
                 is AuthState.LoadingAuth -> {
 
-                    val params = bindingPass.btnSubmit as LinearLayout.LayoutParams
+                    val params = bindingPass.btnSubmit as ConstraintLayout.LayoutParams
                     params.topMargin = 130.toPx()
                     bindingPass.progressBarRegis.visibility = View.VISIBLE
                     bindingPass.txtAuthRegis.visibility = View.VISIBLE

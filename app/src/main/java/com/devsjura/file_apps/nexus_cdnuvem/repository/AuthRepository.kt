@@ -8,13 +8,12 @@ import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.tasks.await
 
 
-
 data class UsersInfo(
     val uid: String,
-    val fullNames: String? = null,
-    val cpfUser: String? = null,
-    val emailUser: String? = null,
-    val numberUser: String? = null,
+    val fullNames: String,
+    val cpfUser: String,
+    val emailUser: String,
+    val numberUser: String,
 )
 
 class AuthRepository(
@@ -25,27 +24,26 @@ class AuthRepository(
 
 
     suspend fun signUpUsers(
-        nameAthRepo: String?,
-        cpfAthRepo: String?,
-        emailAthRepo: String?,
-        passAthRepo: String?,
-        numberAthRepo: String?,
+        nameAthRepo: String,
+        cpfAthRepo: String,
+        emailAthRepo: String,
+        passAthRepo: String,
+        numberAthRepo: String,
     ) {
 
-        val result = passAthRepo?.let {
-            if (emailAthRepo != null) {
-                firebaseAuth.createUserWithEmailAndPassword(emailAthRepo, it).await()
-            }
+        val result = passAthRepo.let {
+            firebaseAuth.createUserWithEmailAndPassword(emailAthRepo, it).await()
         }
 
-        val uuid = result?.user.uid ?: throw Exception("Falha ao criar usuário")
+        val uuid = result.user?.uid ?: throw Exception("Falha ao criar usuário")
 
         val userAthRepo = UsersInfo(uuid, nameAthRepo, cpfAthRepo, emailAthRepo, nameAthRepo)
 
         fbFire.collection("usersApp").document(uuid).set(userAthRepo).await()
 
         if (cpfAthRepo != null) {
-            fbFire.collection("indice_login").document(cpfAthRepo).set(mapOf("email" to emailAthRepo))
+            fbFire.collection("indice_login").document(cpfAthRepo)
+                .set(mapOf("email" to emailAthRepo))
                 .await()
         }
 
@@ -66,7 +64,4 @@ class AuthRepository(
         val email = resolveEmail(identifierLogin, type)
         firebaseAuth.signInWithEmailAndPassword(email, secureLogin)
     }
-
-
-
 }
