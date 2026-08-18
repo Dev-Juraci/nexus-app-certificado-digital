@@ -4,6 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.devsjura.file_apps.nexus_cdnuvem.model.StatesLogin
+import com.devsjura.file_apps.nexus_cdnuvem.others.AuthState
+import com.devsjura.file_apps.nexus_cdnuvem.others.IdentificadorUtils
 import com.devsjura.file_apps.nexus_cdnuvem.others.LoginAttemptManager
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.delay
@@ -11,11 +13,17 @@ import kotlinx.coroutines.launch
 import kotlin.getValue
 import kotlin.time.Duration.Companion.milliseconds
 
-class LoginViewModel(private val loginAttemptManager: LoginAttemptManager) : ViewModel() {
+class LoginViewModel(
+    private val authViewModelLogin: AuthViewModel = AuthViewModel(),
+    private val loginAttemptManager: LoginAttemptManager,
+) : ViewModel() {
 
     private val fbAuth by lazy {
         FirebaseAuth.getInstance()
     }
+
+    private val _loginStateLogin = MutableLiveData<AuthState>(AuthState.Idle)
+    val loginStateLogin = MutableLiveData<AuthState>(AuthState.Idle)
     val loginSucess = MutableLiveData<Boolean>()
     val messageUser = MutableLiveData<StatesLogin>()
 
@@ -26,6 +34,7 @@ class LoginViewModel(private val loginAttemptManager: LoginAttemptManager) : Vie
             startCountdown(remaTime)
         }
     }
+
     fun startCountdown(startTime: Long) {
         viewModelScope.launch {
 
@@ -50,8 +59,23 @@ class LoginViewModel(private val loginAttemptManager: LoginAttemptManager) : Vie
         }
     }
 
+    fun loginUserMain(identificadorLogin: String, userSecureLogin: String) {
+        _loginStateLogin.value = AuthState.loadingAuth
 
-    fun loginUserMain(emailLogin: String, passLogin: String) {
+        viewModelScope.launch {
+            try {
+
+                val typeAuthLogin = IdentificadorUtils.detectType(identificadorLogin)
+                authViewModelLogin.login(identificadorLogin, userSecureLogin, typeAuthLogin)
+
+            } catch (e: Exception) {
+                _loginStateLogin.value = AuthState.Error(e.message ?: "Credenciais inválidas")
+            }
+        }
+    }
+
+
+    fun loginUserMainss(emailLogin: String, passLogin: String) {
 
 
         fbAuth.signInWithEmailAndPassword(emailLogin, passLogin).addOnSuccessListener {
@@ -73,8 +97,8 @@ class LoginViewModel(private val loginAttemptManager: LoginAttemptManager) : Vie
 
     }
 
-     fun checkingInformation(inEm: String, paIn: String){
-        loginUserMain(inEm, paIn)
+    fun checkingInformation(inEm: String, paIn: String) {
+        loginUserMainss(inEm, paIn)
     }
 
 

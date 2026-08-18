@@ -2,7 +2,6 @@ package com.devsjura.file_apps.nexus_cdnuvem.others
 
 import android.content.Context
 import androidx.core.content.edit
-import com.devsjura.file_apps.nexus_cdnuvem.viewmodel.LoginViewModel
 
 class LoginAttemptManager(context: Context) {
 

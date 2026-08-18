@@ -21,6 +21,7 @@ import com.devsjura.file_apps.nexus_cdnuvem.others.LoginAttemptManager
 import com.devsjura.file_apps.nexus_cdnuvem.ui.forget.RecoverActivity
 import com.devsjura.file_apps.nexus_cdnuvem.ui.home.MainActivity
 import com.devsjura.file_apps.nexus_cdnuvem.ui.register.RegisterActivity
+import com.devsjura.file_apps.nexus_cdnuvem.viewmodel.AuthViewModel
 import com.devsjura.file_apps.nexus_cdnuvem.viewmodel.LoginViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -34,7 +35,7 @@ class LoginActivity : AppCompatActivity() {
     private val loginViewModel: LoginViewModel by viewModels {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return LoginViewModel(LoginAttemptManager(this@LoginActivity)) as T
+                return LoginViewModel(AuthViewModel(), LoginAttemptManager(this@LoginActivity)) as T
             }
 
         }

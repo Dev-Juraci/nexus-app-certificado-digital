@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.devsjura.file_apps.nexus_cdnuvem.others.AuthState
 import com.devsjura.file_apps.nexus_cdnuvem.others.IdentificadorUtils
+import com.devsjura.file_apps.nexus_cdnuvem.others.TipoIdentificador
 import com.devsjura.file_apps.nexus_cdnuvem.repository.AuthRepository
 import kotlinx.coroutines.launch
 
@@ -48,7 +49,7 @@ class AuthViewModel(private val authViewModel: AuthRepository = AuthRepository()
 
     }
 
-    fun login(identificador: String, userSecure: String) {
+    fun login(identificador: String, userSecure: String, typeAuthLogin: TipoIdentificador) {
         _loginState.value = AuthState.loadingAuth
 
         viewModelScope.launch {
