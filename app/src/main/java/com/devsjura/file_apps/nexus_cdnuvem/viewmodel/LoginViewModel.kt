@@ -67,6 +67,7 @@ class LoginViewModel(
 
                 val typeAuthLogin = IdentificadorUtils.detectType(identificadorLogin)
                 authViewModelLogin.login(identificadorLogin, userSecureLogin, typeAuthLogin)
+                _loginStateLogin.value = AuthState.sucessAuth
 
             } catch (e: Exception) {
                 _loginStateLogin.value = AuthState.Error(e.message ?: "Credenciais inválidas")

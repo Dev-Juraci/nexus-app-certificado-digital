@@ -5,18 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.devsjura.file_apps.nexus_cdnuvem.others.AuthState
-import com.devsjura.file_apps.nexus_cdnuvem.others.IdentificadorUtils
-import com.devsjura.file_apps.nexus_cdnuvem.others.TipoIdentificador
 import com.devsjura.file_apps.nexus_cdnuvem.repository.AuthRepository
 import kotlinx.coroutines.launch
 
-class AuthViewModel(private val authViewModel: AuthRepository = AuthRepository()) : ViewModel() {
+class AuthViewModel(private val authRepositoryRegister: AuthRepository = AuthRepository()) : ViewModel() {
 
     private val _stateRegistration = MutableLiveData<AuthState>(AuthState.Idle)
     val stateRegistration: LiveData<AuthState> = _stateRegistration
 
-    private val _loginState = MutableLiveData<AuthState>(AuthState.Idle)
-    val loginState = MutableLiveData<AuthState>(AuthState.Idle)
 
     fun registerUsers(
         namesAuViMo: String,
@@ -31,7 +27,7 @@ class AuthViewModel(private val authViewModel: AuthRepository = AuthRepository()
         viewModelScope.launch {
 
             try {
-                authViewModel.signUpUsers(
+                authRepositoryRegister.signUpUsers(
                     namesAuViMo,
                     cpfAuViMo,
                     emailAuViMo,
@@ -48,23 +44,5 @@ class AuthViewModel(private val authViewModel: AuthRepository = AuthRepository()
 
 
     }
-
-    fun login(identificador: String, userSecure: String, typeAuthLogin: TipoIdentificador) {
-        _loginState.value = AuthState.loadingAuth
-
-        viewModelScope.launch {
-            try {
-                val typeAuth = IdentificadorUtils.detectType(identificador)
-                authViewModel.login(identificador, userSecure, typeAuth)
-                _loginState.value = AuthState.sucessAuth
-
-            } catch (e: Exception) {
-                _loginState.value = AuthState.Error(e.message ?: "Credenciais inválidas")
-            }
-        }
-
-
-    }
-
 
 }
