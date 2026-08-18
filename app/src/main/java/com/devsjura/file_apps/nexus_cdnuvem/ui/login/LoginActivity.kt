@@ -30,23 +30,23 @@ import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
 
-    private val viewModelLogin: LoginViewModel by viewModels()
+    private val viewModelLogins: LoginViewModel by viewModels()
     private val animaStart by lazy {
         AnimaStart()
     }
     private lateinit var binding: ActivityLoginBinding
 
-//    private val loginViewModel: LoginViewModel by viewModels {
-//        object : ViewModelProvider.Factory {
-//            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-//                return LoginViewModel(
-//                    AuthRepository(),
-//                    LoginAttemptManager(this@LoginActivity)
-//                ) as T
-//            }
-//
-//        }
-//    }
+    private val viewModelLogin: LoginViewModel by viewModels {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return LoginViewModel(
+                    AuthRepository(),
+                    LoginAttemptManager(this@LoginActivity)
+                ) as T
+            }
+
+        }
+    }
 
 
     override fun onStart() {
@@ -98,8 +98,6 @@ class LoginActivity : AppCompatActivity() {
 //        }
 
 
-
-
         with(binding) {
             btnForgotPassword.setOnClickListener {
                 startActivity(Intent(this@LoginActivity, RecoverActivity::class.java))
@@ -147,10 +145,10 @@ class LoginActivity : AppCompatActivity() {
 
             }
 
-            observeStateLogin()
-
-
         }
+
+        observeStateLogin()
+
 
     }
 
@@ -159,9 +157,10 @@ class LoginActivity : AppCompatActivity() {
 
             when (stateLogin) {
                 is AuthState.loadingAuth -> {
-                    binding.btnLogin.isEnabled = false
                     binding.progressBarLogin.visibility = View.VISIBLE
                     binding.txtAuthLogin.visibility = View.VISIBLE
+                    binding.btnLogin.isEnabled = false
+
                 }
 
                 is AuthState.sucessAuth -> {
