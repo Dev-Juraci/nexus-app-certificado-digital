@@ -4,16 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.devsjura.file_apps.nexus_cdnuvem.others.AuthState
 import com.devsjura.file_apps.nexus_cdnuvem.others.IdentificadorUtils
 import com.devsjura.file_apps.nexus_cdnuvem.repository.AuthRepository
 import kotlinx.coroutines.launch
-
-sealed class AuthState {
-    object Idle : AuthState()
-    object LoadingAuth : AuthState()
-    object successAuth : AuthState()
-    data class Error(val msgErro: String) : AuthState()
-}
 
 class AuthViewModel(private val authViewModel: AuthRepository = AuthRepository()) : ViewModel() {
 
@@ -31,7 +25,7 @@ class AuthViewModel(private val authViewModel: AuthRepository = AuthRepository()
         passwordAuViMo: String,
     ) {
 
-        _stateRegistration.value = AuthState.LoadingAuth
+        _stateRegistration.value = AuthState.loadingAuth
 
         viewModelScope.launch {
 
@@ -43,7 +37,7 @@ class AuthViewModel(private val authViewModel: AuthRepository = AuthRepository()
                     phoneAuViMo,
                     passwordAuViMo
                 )
-                _stateRegistration.value = AuthState.successAuth
+                _stateRegistration.value = AuthState.sucessAuth
             } catch (e: Exception) {
                 _stateRegistration.value = AuthState.Error(e.message ?: "Erro ao cadastrar")
             }
@@ -55,13 +49,13 @@ class AuthViewModel(private val authViewModel: AuthRepository = AuthRepository()
     }
 
     fun login(identificador: String, userSecure: String) {
-        _loginState.value = AuthState.LoadingAuth
+        _loginState.value = AuthState.loadingAuth
 
         viewModelScope.launch {
             try {
                 val typeAuth = IdentificadorUtils.detectType(identificador)
                 authViewModel.login(identificador, userSecure, typeAuth)
-                _loginState.value = AuthState.successAuth
+                _loginState.value = AuthState.sucessAuth
 
             } catch (e: Exception) {
                 _loginState.value = AuthState.Error(e.message ?: "Credenciais inválidas")

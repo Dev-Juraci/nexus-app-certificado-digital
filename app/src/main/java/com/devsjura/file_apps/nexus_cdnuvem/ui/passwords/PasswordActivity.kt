@@ -13,8 +13,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.devsjura.file_apps.nexus_cdnuvem.R
 import com.devsjura.file_apps.nexus_cdnuvem.databinding.ActivityPasswordBinding
+import com.devsjura.file_apps.nexus_cdnuvem.others.AuthState
 import com.devsjura.file_apps.nexus_cdnuvem.ui.home.MainActivity
-import com.devsjura.file_apps.nexus_cdnuvem.viewmodel.AuthState
 import com.devsjura.file_apps.nexus_cdnuvem.viewmodel.AuthViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -71,7 +71,7 @@ class PasswordActivity : AppCompatActivity() {
         viewModel.stateRegistration.observe(this) { state ->
 
             when (state) {
-                is AuthState.LoadingAuth -> {
+                is AuthState.loadingAuth -> {
 
                     val params = bindingPass.btnSubmit.layoutParams as ConstraintLayout.LayoutParams
                     params.topMargin = 130.toPx()
@@ -81,7 +81,7 @@ class PasswordActivity : AppCompatActivity() {
                     bindingPass.btnSubmit.isEnabled = false
                 }
 
-                is AuthState.successAuth -> {
+                is AuthState.sucessAuth -> {
                     bindingPass.progressBarRegis.visibility = View.GONE
                     bindingPass.txtAuthRegis.visibility = View.GONE
                     startActivity(Intent(this@PasswordActivity, MainActivity::class.java))
@@ -92,7 +92,7 @@ class PasswordActivity : AppCompatActivity() {
                     bindingPass.progressBarRegis.visibility = View.GONE
                     bindingPass.txtAuthRegis.visibility = View.GONE
                     bindingPass.btnSubmit.isEnabled = true
-                    Snackbar.make(bindingPass.root, state.msgErro, Snackbar.LENGTH_LONG).show()
+                    Snackbar.make(bindingPass.root, state.msgError, Snackbar.LENGTH_LONG).show()
                 }
 
 

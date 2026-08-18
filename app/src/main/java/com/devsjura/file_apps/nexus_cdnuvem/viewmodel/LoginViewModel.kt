@@ -26,7 +26,6 @@ class LoginViewModel(private val loginAttemptManager: LoginAttemptManager) : Vie
             startCountdown(remaTime)
         }
     }
-
     fun startCountdown(startTime: Long) {
         viewModelScope.launch {
 
@@ -38,8 +37,6 @@ class LoginViewModel(private val loginAttemptManager: LoginAttemptManager) : Vie
                 messageUser.value = StatesLogin(
                     "Muitas tentativas erradas. Tente novamente em $minutes minuto(s).", true
                 )
-
-
                 delay(1000L.milliseconds)
                 timeRemaining = loginAttemptManager.remainingLockoutTime()
 
