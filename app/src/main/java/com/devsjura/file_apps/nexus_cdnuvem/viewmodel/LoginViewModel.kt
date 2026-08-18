@@ -7,6 +7,7 @@ import com.devsjura.file_apps.nexus_cdnuvem.model.StatesLogin
 import com.devsjura.file_apps.nexus_cdnuvem.others.AuthState
 import com.devsjura.file_apps.nexus_cdnuvem.others.IdentificadorUtils
 import com.devsjura.file_apps.nexus_cdnuvem.others.LoginAttemptManager
+import com.devsjura.file_apps.nexus_cdnuvem.repository.AuthRepository
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -14,7 +15,7 @@ import kotlin.getValue
 import kotlin.time.Duration.Companion.milliseconds
 
 class LoginViewModel(
-    private val authViewModelLogin: AuthViewModel = AuthViewModel(),
+    private val authRepositoryLogin: AuthRepository = AuthRepository(),
     private val loginAttemptManager: LoginAttemptManager,
 ) : ViewModel() {
 
@@ -66,7 +67,7 @@ class LoginViewModel(
             try {
 
                 val typeAuthLogin = IdentificadorUtils.detectType(identificadorLogin)
-                authViewModelLogin.login(identificadorLogin, userSecureLogin, typeAuthLogin)
+                authRepositoryLogin.login(identificadorLogin, userSecureLogin, typeAuthLogin)
                 _loginStateLogin.value = AuthState.sucessAuth
 
             } catch (e: Exception) {
@@ -76,31 +77,6 @@ class LoginViewModel(
     }
 
 
-    fun loginUserMainss(emailLogin: String, passLogin: String) {
-
-
-        fbAuth.signInWithEmailAndPassword(emailLogin, passLogin).addOnSuccessListener {
-
-            loginAttemptManager.resetAttempts()
-            loginSucess.value = true
-        }
-
-            .addOnFailureListener {
-                loginAttemptManager.logFailedAttempt()
-                if (loginAttemptManager.numberOfAttempts() <= 4) {
-                    messageUser.value =
-                        StatesLogin("E-mail ou senha inválidos.", false)
-                    return@addOnFailureListener
-                }
-                checkInitialLock()
-
-            }
-
-    }
-
-    fun checkingInformation(inEm: String, paIn: String) {
-        loginUserMainss(inEm, paIn)
-    }
 
 
 }

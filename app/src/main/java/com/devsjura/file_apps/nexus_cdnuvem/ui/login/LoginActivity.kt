@@ -17,7 +17,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.devsjura.file_apps.nexus_cdnuvem.R
 import com.devsjura.file_apps.nexus_cdnuvem.animations.AnimaStart
 import com.devsjura.file_apps.nexus_cdnuvem.databinding.ActivityLoginBinding
+import com.devsjura.file_apps.nexus_cdnuvem.others.AuthState
 import com.devsjura.file_apps.nexus_cdnuvem.others.LoginAttemptManager
+import com.devsjura.file_apps.nexus_cdnuvem.repository.AuthRepository
 import com.devsjura.file_apps.nexus_cdnuvem.ui.forget.RecoverActivity
 import com.devsjura.file_apps.nexus_cdnuvem.ui.home.MainActivity
 import com.devsjura.file_apps.nexus_cdnuvem.ui.register.RegisterActivity
@@ -27,19 +29,24 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
+
+    private val viewModelLogin: LoginViewModel by viewModels()
     private val animaStart by lazy {
         AnimaStart()
     }
     private lateinit var binding: ActivityLoginBinding
 
-    private val loginViewModel: LoginViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return LoginViewModel(AuthViewModel(), LoginAttemptManager(this@LoginActivity)) as T
-            }
-
-        }
-    }
+//    private val loginViewModel: LoginViewModel by viewModels {
+//        object : ViewModelProvider.Factory {
+//            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+//                return LoginViewModel(
+//                    AuthRepository(),
+//                    LoginAttemptManager(this@LoginActivity)
+//                ) as T
+//            }
+//
+//        }
+//    }
 
 
     override fun onStart() {
@@ -65,29 +72,30 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
         animaStart.objectAnimaImgTxt(binding.containerLogo, -20F, 1250L)
-        loginViewModel.checkInitialLock()
 
-
-
-        loginViewModel.loginSucess.observe(this) { sucess ->
-            if (sucess) {
-                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-                finish()
-            }
-        }
-
-        loginViewModel.messageUser.observe(this) { statesLogin ->
-            if (statesLogin.viewLinear) {
-                binding.txtLockoutMessage.text = statesLogin.msgToTheUser
-                binding.layoutFormFields.visibility = View.GONE
-                binding.containerLockoutView.visibility = View.VISIBLE
-            } else {
-                binding.containerLockoutView.visibility = View.GONE
-                Snackbar.make(binding.root, statesLogin.msgToTheUser, Snackbar.LENGTH_LONG).show()
-                binding.layoutFormFields.visibility = View.VISIBLE
-            }
-
-        }
+//        loginViewModel.checkInitialLock()
+//
+//
+//
+//        loginViewModel.loginSucess.observe(this) { sucess ->
+//            if (sucess) {
+//                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+//                finish()
+//            }
+//        }
+//
+//        loginViewModel.messageUser.observe(this) { statesLogin ->
+//            if (statesLogin.viewLinear) {
+//                binding.txtLockoutMessage.text = statesLogin.msgToTheUser
+//                binding.layoutFormFields.visibility = View.GONE
+//                binding.containerLockoutView.visibility = View.VISIBLE
+//            } else {
+//                binding.containerLockoutView.visibility = View.GONE
+//                Snackbar.make(binding.root, statesLogin.msgToTheUser, Snackbar.LENGTH_LONG).show()
+//                binding.layoutFormFields.visibility = View.VISIBLE
+//            }
+//
+//        }
 
 
 
@@ -135,18 +143,47 @@ class LoginActivity : AppCompatActivity() {
 
                 }
 
-                loginViewModel.checkingInformation(inputUserEmail, passwInputUser)
+                viewModelLogin.loginUserMain(inputUserEmail, passwInputUser)
 
             }
+
+            observeStateLogin()
+
 
         }
 
     }
 
-//    private fun checkingInformation(inEm: String, paIn: String) {
-//        loginViewModel.loginUserMain(inEm, paIn)
-//
-//    }
+    fun observeStateLogin() {
+        viewModelLogin.loginStateLogin.observe(this) { stateLogin ->
+
+            when (stateLogin) {
+                is AuthState.loadingAuth -> {
+                    binding.btnLogin.isEnabled = false
+                    binding.progressBarLogin.visibility = View.VISIBLE
+                    binding.txtAuthLogin.visibility = View.VISIBLE
+                }
+
+                is AuthState.sucessAuth -> {
+                    binding.progressBarLogin.visibility = View.GONE
+                    binding.txtAuthLogin.visibility = View.GONE
+                    startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                    finish()
+                }
+
+                is AuthState.Error -> {
+                    binding.progressBarLogin.visibility = View.GONE
+                    binding.txtAuthLogin.visibility = View.GONE
+                    binding.btnLogin.isEnabled = true
+                    Snackbar.make(binding.root, stateLogin.msgError, Snackbar.LENGTH_LONG).show()
+                }
+
+                is AuthState.Idle -> Unit
+
+            }
+
+        }
+    }
 
 
 }

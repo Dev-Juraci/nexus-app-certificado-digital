@@ -179,13 +179,25 @@
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_button_gradient"
+                    android:text="Entrar  →"
+                    android:textAllCaps="false"
+                    android:textColor="#0B111E"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
                 <ProgressBar
                     android:id="@+id/progressBarLogin"
                     style="?android:attr/progressBarStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="25dp"
                     android:indeterminateTint="#00E5FF"
                     android:visibility="gone"
                     tools:visibility="visible" />
@@ -201,18 +213,6 @@
                     android:textSize="14sp"
                     android:visibility="gone"
                     tools:visibility="visible" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnLogin"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_marginTop="32dp"
-                    android:background="@drawable/bg_button_gradient"
-                    android:text="Entrar  →"
-                    android:textAllCaps="false"
-                    android:textColor="#0B111E"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/txtCreateAccount"
