@@ -1,5 +1,6 @@
 package com.devsjura.file_apps.nexus_cdnuvem.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -24,7 +25,7 @@ class LoginViewModel(
     }
 
     private val _loginStateLogin = MutableLiveData<AuthState>(AuthState.Idle)
-    val loginStateLogin = MutableLiveData<AuthState>(AuthState.Idle)
+    val loginStateLogin: LiveData<AuthState> get() = _loginStateLogin
     val loginSucess = MutableLiveData<Boolean>()
     val messageUser = MutableLiveData<StatesLogin>()
 
@@ -75,8 +76,6 @@ class LoginViewModel(
             }
         }
     }
-
-
 
 
 }
