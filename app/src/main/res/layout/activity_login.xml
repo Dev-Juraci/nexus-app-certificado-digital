@@ -116,7 +116,7 @@
                     android:drawableStart="@drawable/ic_shield_outline"
                     android:drawablePadding="12dp"
                     android:hint="Digite seu CPF ou e-mail"
-                    android:inputType="textEmailAddress"
+                    android:inputType="text"
                     android:paddingHorizontal="16dp"
                     android:textColor="#FFFFFF"
                     android:textColorHint="#475569"

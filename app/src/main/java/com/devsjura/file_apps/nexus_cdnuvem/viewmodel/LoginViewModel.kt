@@ -65,7 +65,6 @@ class LoginViewModel(
 
         viewModelScope.launch {
             try {
-
                 val typeAuthLogin = IdentificadorUtils.detectType(identificadorLogin)
                 authRepositoryLogin.login(identificadorLogin, userSecureLogin, typeAuthLogin)
                 _loginStateLogin.value = AuthState.sucessAuth

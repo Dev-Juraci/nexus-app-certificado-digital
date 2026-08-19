@@ -24,7 +24,7 @@ class AuthRepository(
 
 
     suspend fun signUpUsers(
-        nameAthRepo : String,
+        nameAthRepo: String,
         cpfAthRepo: String,
         emailAthRepo: String,
         passAthRepo: String,
@@ -41,11 +41,11 @@ class AuthRepository(
 
         fbFire.collection("usersApp").document(uuid).set(userAthRepo).await()
 
-        if (cpfAthRepo != null) {
-            fbFire.collection("indice_login").document(cpfAthRepo)
-                .set(mapOf("email" to emailAthRepo))
-                .await()
-        }
+
+        fbFire.collection("indice_login").document(cpfAthRepo)
+            .set(mapOf("email" to emailAthRepo))
+            .await()
+
 
         fbFire.collection("indice_login").document()
             .set(mapOf("email" to emailAthRepo)).await()
@@ -62,6 +62,6 @@ class AuthRepository(
 
     suspend fun login(identifierLogin: String, secureLogin: String, type: TipoIdentificador) {
         val email = resolveEmail(identifierLogin, type)
-        firebaseAuth.signInWithEmailAndPassword(email, secureLogin)
+        firebaseAuth.signInWithEmailAndPassword(email, secureLogin).await()
     }
 }

@@ -74,7 +74,6 @@ class LoginActivity : AppCompatActivity() {
         animaStart.objectAnimaImgTxt(binding.containerLogo, -20F, 1250L)
 
         viewModelLogin.checkInitialLock()
-        observeStateLogin()
 
 //
 //
@@ -118,30 +117,23 @@ class LoginActivity : AppCompatActivity() {
                 val inputUserEmail = binding.inputUsername.text.toString()
                 val passwInputUser = binding.inputPassword.text.toString()
 
-//                if (inputUserEmail.isBlank() || passwInputUser.isBlank()) {
-//                    Snackbar.make(
-//                        binding.root,
-//                        getString(R.string.preencha_o_e_mail_e_a_senha),
-//                        Snackbar.LENGTH_LONG
-//                    )
-//                        .show()
-//                    return@setOnClickListener
-//                } else if (!Patterns.EMAIL_ADDRESS.matcher(inputUserEmail).matches()) {
-//                    Snackbar.make(
-//                        binding.root,
-//                        getString(R.string.emails_infor),
-//                        Snackbar.LENGTH_LONG
-//                    ).show()
-//                    return@setOnClickListener
-//                } else if (passwInputUser.length < 6) {
-//                    Snackbar.make(
-//                        binding.root,
-//                        "A senha deve ter no mínimo 6 dígitos.",
-//                        Snackbar.LENGTH_LONG
-//                    ).show()
-//                    return@setOnClickListener
-//
-//                }
+                if (inputUserEmail.isBlank() || passwInputUser.isBlank()) {
+                    Snackbar.make(
+                        binding.root,
+                        getString(R.string.preencha_o_e_mail_e_a_senha),
+                        Snackbar.LENGTH_LONG
+                    )
+                        .show()
+                    return@setOnClickListener
+                } else if (passwInputUser.length < 6) {
+                    Snackbar.make(
+                        binding.root,
+                        "A senha deve ter no mínimo 6 dígitos.",
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                    return@setOnClickListener
+
+                }
 
                 viewModelLogin.loginUserMain(inputUserEmail, passwInputUser)
 
@@ -149,6 +141,7 @@ class LoginActivity : AppCompatActivity() {
 
         }
 
+        observeStateLogin()
 
 
     }
