@@ -23,7 +23,6 @@ class LoginViewModel(
     private val fbAuth by lazy {
         FirebaseAuth.getInstance()
     }
-
     private val _loginStateLogin = MutableLiveData<AuthState>(AuthState.Idle)
     val loginStateLogin: LiveData<AuthState> get() = _loginStateLogin
     val loginSucess = MutableLiveData<Boolean>()
@@ -48,7 +47,7 @@ class LoginViewModel(
                 messageUser.value = StatesLogin(
                     "Muitas tentativas erradas. Tente novamente em $minutes minuto(s).", true
                 )
-                delay(1000L.milliseconds)
+                delay(1000L)
                 timeRemaining = loginAttemptManager.remainingLockoutTime()
 
             }
