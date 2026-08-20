@@ -52,7 +52,7 @@ class PasswordActivity : AppCompatActivity() {
 
             val testPai = bindingPass.tilPassword
             val test = bindingPass.etPassword.text.toString()
-            if (test.isBlank() && test.length <= 5) {
+            if (test.isBlank() || test.length <= 5) {
                 testPai.error = "Informe uma senha válida com no mínimo 6 caracteres."
             }
 

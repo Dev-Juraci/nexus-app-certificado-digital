@@ -8,7 +8,8 @@ import com.devsjura.file_apps.nexus_cdnuvem.others.AuthState
 import com.devsjura.file_apps.nexus_cdnuvem.repository.AuthRepository
 import kotlinx.coroutines.launch
 
-class AuthViewModel(private val authRepositoryRegister: AuthRepository = AuthRepository()) : ViewModel() {
+class AuthViewModel(private val authRepositoryRegister: AuthRepository = AuthRepository()) :
+    ViewModel() {
 
     private val _stateRegistration = MutableLiveData<AuthState>(AuthState.Idle)
     val stateRegistration: LiveData<AuthState> = _stateRegistration
@@ -31,9 +32,10 @@ class AuthViewModel(private val authRepositoryRegister: AuthRepository = AuthRep
                     namesAuViMo,
                     cpfAuViMo,
                     emailAuViMo,
+                    passwordAuViMo,
                     phoneAuViMo,
-                    passwordAuViMo
-                )
+
+                    )
                 _stateRegistration.value = AuthState.sucessAuth
             } catch (e: Exception) {
                 _stateRegistration.value = AuthState.Error(e.message ?: "Erro ao cadastrar")
