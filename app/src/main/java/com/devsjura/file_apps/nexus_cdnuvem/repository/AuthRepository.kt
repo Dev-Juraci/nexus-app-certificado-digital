@@ -51,10 +51,7 @@ class AuthRepository(
         fbFire.collection("indice_login").document()
             .set(mapOf("email" to emailAthRepo)).await()
 
-        Log.d(
-            "CADASTRO_TESTE",
-            "Email: '$emailAthRepo' | senha USER length: ${passAthRepo.length}"
-        )
+
     }
 
     private suspend fun resolveEmail(identifierRE: String, tipo: TipoIdentificador): String {
@@ -66,11 +63,20 @@ class AuthRepository(
 
     }
 
+
+
+
     suspend fun login(identifierLogin: String, secureLogin: String, type: TipoIdentificador) {
         val email = resolveEmail(identifierLogin, type)
         Log.d("LOGIN_TESTE", "Identificador: $identifierLogin")
         Log.d("LOGIN_TESTE", "Email resolvido: $email")
         Log.d("LOGIN_TESTE", "Tamanho da senha: ${secureLogin.length}")
+
+
+        Log.d(
+            "FIREBASE_PROJECT",
+            "Project ID: ${Firebase.firestore.app.options.projectId}"
+        )
 
         firebaseAuth.signInWithEmailAndPassword(email, secureLogin).await()
     }

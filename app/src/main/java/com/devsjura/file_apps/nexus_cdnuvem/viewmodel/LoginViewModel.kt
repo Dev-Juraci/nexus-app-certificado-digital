@@ -1,5 +1,6 @@
 package com.devsjura.file_apps.nexus_cdnuvem.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,6 +11,7 @@ import com.devsjura.file_apps.nexus_cdnuvem.others.IdentificadorUtils
 import com.devsjura.file_apps.nexus_cdnuvem.others.LoginAttemptManager
 import com.devsjura.file_apps.nexus_cdnuvem.repository.AuthRepository
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.getValue
@@ -69,7 +71,9 @@ class LoginViewModel(
                 authRepositoryLogin.login(identificadorLogin, userSecureLogin, typeAuthLogin)
                 _loginStateLogin.value = AuthState.sucessAuth
 
-            } catch (e: Exception) {
+            } catch (e: FirebaseAuthException) {
+                Log.e("LOGIN_ERROR", "Código: ${e.errorCode}")
+                Log.e("LOGIN_ERROR", "Mensagem: ${e.message}")
                 _loginStateLogin.value = AuthState.Error(e.message ?: "Credenciais inválidas")
             }
         }
